@@ -6,6 +6,7 @@ createApp({
     const loading = ref(true);
     const confirmVisible = ref(false);
     const deleteItemId = ref('');
+    const fallbackImage = 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=300';
 
     const total = computed(function () {
       return items.value.reduce(function (sum, item) {
@@ -68,7 +69,7 @@ createApp({
     });
 
     return {
-      items, loading, total, confirmVisible,
+      items, loading, total, confirmVisible, fallbackImage,
       updateQuantity, confirmDelete, handleDelete, goCheckout
     };
   }

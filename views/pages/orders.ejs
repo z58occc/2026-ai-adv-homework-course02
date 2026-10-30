@@ -1,40 +1,53 @@
-<div id="app">
-  <h1 class="text-2xl font-bold text-text-primary mb-6" style="font-family: 'Noto Serif TC', serif;">我的訂單</h1>
+<div id="app" class="container-page flex flex-col gap-8 pt-10 pb-20 md:gap-10 md:pt-14 md:pb-[120px]">
+  <h1 class="font-display text-4xl font-black text-ink md:text-[52px]">我的訂單</h1>
 
   <div v-if="loading" class="flex justify-center py-12">
-    <div class="w-8 h-8 border-4 border-rose-primary border-t-transparent rounded-full animate-spin"></div>
+    <div class="size-8 animate-spin rounded-full border-4 border-ink border-t-transparent"></div>
   </div>
 
-  <div v-else-if="orders.length === 0" class="text-center py-12">
-    <div class="text-4xl mb-3">&#128230;</div>
-    <p class="text-text-secondary mb-1">尚無訂單</p>
-    <p class="text-text-muted text-sm mb-4">快去選購喜歡的花束吧！</p>
-    <a href="/" class="inline-block bg-rose-primary text-white px-6 py-2 rounded-full text-sm hover:bg-rose-dark transition-colors">去逛逛</a>
+  <div v-else-if="orders.length === 0" class="border-y border-line py-16 text-center">
+    <p class="font-display text-2xl font-bold text-ink">尚無訂單</p>
+    <p class="mt-2 mb-6 text-sm text-ink-soft">快去選購喜歡的花束吧</p>
+    <a href="/" class="btn-primary px-8 py-3.5 text-base">去逛逛</a>
   </div>
 
-  <div v-else class="space-y-4">
+  <div v-else class="flex flex-col">
+    <!-- Table head (md+) -->
+    <div class="hidden border-b-[1.5px] border-ink pb-3.5 text-sm font-bold text-ink-soft md:grid md:grid-cols-[1.8fr_1.3fr_1fr_1fr_1.3fr] md:gap-4">
+      <span>訂單編號</span>
+      <span>下單日期</span>
+      <span>金額</span>
+      <span>狀態</span>
+      <span></span>
+    </div>
+
     <a
       v-for="order in orders"
       :key="order.id"
       :href="'/orders/' + order.id"
-      class="block bg-white rounded-2xl shadow-sm p-5 hover:shadow-md transition-shadow"
+      class="group grid grid-cols-2 items-center gap-x-4 gap-y-3 border-b border-line py-6 transition-colors hover:bg-white/60 md:grid-cols-[1.8fr_1.3fr_1fr_1fr_1.3fr] md:py-[26px]"
     >
-      <div class="flex items-center justify-between">
-        <div>
-          <p class="text-sm text-text-secondary">訂單編號：{{ order.order_no }}</p>
-          <p class="text-xs text-text-muted mt-1">{{ new Date(order.created_at).toLocaleDateString('zh-TW') }}</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <span class="font-bold text-text-primary">NT$ {{ order.total_amount.toLocaleString() }}</span>
-          <span
-            class="text-xs px-3 py-1 rounded-full font-medium"
-            :class="statusMap[order.status]?.cls || 'bg-gray-100 text-gray-600'"
-          >
-            {{ statusMap[order.status]?.label || order.status }}
-          </span>
-          <span class="text-text-muted">&#8594;</span>
-        </div>
-      </div>
+      <span class="font-display text-lg font-bold text-ink md:text-xl">{{ order.order_no }}</span>
+      <span class="justify-self-end md:order-none md:justify-self-start">
+        <span
+          class="inline-block rounded-[3px] px-3.5 py-[5px] text-[13px] font-bold md:hidden"
+          :class="statusMap[order.status]?.cls || 'bg-line text-ink-soft'"
+        >{{ statusMap[order.status]?.label || order.status }}</span>
+        <span class="hidden text-base text-ink-soft md:inline">{{ new Date(order.created_at).toLocaleDateString('zh-TW') }}</span>
+      </span>
+      <span class="font-display text-lg font-black text-ink md:hidden">NT$ {{ order.total_amount.toLocaleString() }}</span>
+      <span class="justify-self-end text-sm text-ink-soft md:hidden">{{ new Date(order.created_at).toLocaleDateString('zh-TW') }}</span>
+      <span class="hidden font-display text-xl font-black text-ink md:inline">NT$ {{ order.total_amount.toLocaleString() }}</span>
+      <span class="hidden md:block">
+        <span
+          class="inline-block rounded-[3px] px-3.5 py-[5px] text-[13px] font-bold"
+          :class="statusMap[order.status]?.cls || 'bg-line text-ink-soft'"
+        >{{ statusMap[order.status]?.label || order.status }}</span>
+      </span>
+      <span class="col-span-2 flex items-center justify-end gap-1.5 text-[15px] font-medium text-hydrangea md:col-span-1">
+        查看明細
+        <%- include('../partials/icon', { name: 'chevron-right', cls: 'size-4 transition-transform group-hover:translate-x-0.5' }) %>
+      </span>
     </a>
   </div>
 </div>

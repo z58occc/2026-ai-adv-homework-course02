@@ -1,78 +1,105 @@
 <div id="app" data-product-id="<%= productId %>">
-  <div v-if="loading" class="flex justify-center py-12">
-    <div class="w-8 h-8 border-4 border-rose-primary border-t-transparent rounded-full animate-spin"></div>
+  <div v-if="loading" class="flex justify-center py-24">
+    <div class="size-8 animate-spin rounded-full border-4 border-ink border-t-transparent"></div>
   </div>
 
-  <div v-else-if="notFound" class="text-center py-16">
-    <div class="text-5xl mb-4">&#127804;</div>
-    <h2 class="text-xl font-medium text-text-primary mb-2">找不到此商品</h2>
-    <a href="/" class="text-rose-primary hover:text-rose-dark text-sm">回到首頁</a>
+  <div v-else-if="notFound" class="container-page py-24 text-center">
+    <h2 class="font-display text-3xl font-black text-ink">找不到此商品</h2>
+    <a href="/" class="btn-primary mt-6 px-8 py-3.5 text-base">回到首頁</a>
   </div>
 
-  <div v-else-if="product" class="flex flex-col md:flex-row gap-8 md:gap-12">
-    <!-- Left: Image -->
-    <div class="md:w-1/2">
-      <div class="rounded-2xl overflow-hidden shadow-sm">
+  <template v-else-if="product">
+    <!-- Breadcrumb -->
+    <nav class="container-page flex items-center gap-2.5 pt-6 text-sm md:pt-7" aria-label="breadcrumb">
+      <a href="/" class="text-ink-soft transition-colors hover:text-ink">商品列表</a>
+      <%- include('../partials/icon', { name: 'chevron-right', cls: 'size-3.5 text-ink-soft' }) %>
+      <span class="font-medium text-ink">{{ product.name }}</span>
+    </nav>
+
+    <!-- Main -->
+    <section class="container-page flex flex-col gap-10 pt-6 pb-16 md:pt-8 md:pb-24 lg:flex-row lg:gap-20">
+      <div class="aspect-[640/780] w-full overflow-hidden rounded-[2px] bg-image-fallback lg:w-[640px] lg:shrink-0">
         <img
-          :src="product.image_url || 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600'"
+          :src="product.image_url || fallbackImage"
           :alt="product.name"
-          class="w-full aspect-square object-cover"
+          class="size-full object-cover"
         />
       </div>
-    </div>
 
-    <!-- Right: Info -->
-    <div class="md:w-1/2">
-      <h1 class="text-2xl md:text-3xl font-bold text-text-primary mb-2" style="font-family: 'Noto Serif TC', serif;">
-        {{ product.name }}
-      </h1>
-      <p class="text-3xl text-rose-primary font-bold mb-4">NT$ {{ product.price.toLocaleString() }}</p>
+      <div class="flex flex-col gap-6 lg:flex-1 lg:gap-7 lg:pt-6">
+        <h1 class="font-display text-4xl leading-tight font-black text-ink md:text-5xl lg:text-[52px]">{{ product.name }}</h1>
 
-      <div class="mb-6">
-        <span class="text-sage text-sm">&#10003; 尚有 {{ product.stock }} 件</span>
-      </div>
+        <div><span class="price-tag price-tag-lg">NT$ {{ product.price.toLocaleString() }}</span></div>
 
-      <p class="text-text-secondary leading-relaxed mb-6">{{ product.description }}</p>
+        <div v-if="product.stock > 0" class="flex items-center gap-2 text-[15px] font-medium text-fern">
+          <%- include('../partials/icon', { name: 'check', cls: 'size-[18px]' }) %>
+          尚有 {{ product.stock }} 件現貨
+        </div>
+        <div v-else class="text-[15px] font-medium text-berry">目前已售完</div>
 
-      <!-- Quantity Selector -->
-      <div class="flex items-center gap-4 mb-6">
-        <span class="text-sm text-text-secondary">數量</span>
-        <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden">
-          <button
-            @click="decrease"
-            class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 text-text-secondary transition-colors"
-          >
-            -
-          </button>
-          <span class="w-12 h-10 flex items-center justify-center text-sm border-x border-gray-200">
-            {{ quantity }}
-          </span>
-          <button
-            @click="increase"
-            class="w-10 h-10 flex items-center justify-center hover:bg-gray-50 text-text-secondary transition-colors"
-          >
-            +
-          </button>
+        <p class="text-base leading-[1.9] text-ink-soft lg:text-[17px]">{{ product.description }}</p>
+
+        <!-- Quantity -->
+        <div class="flex items-center gap-5">
+          <span class="text-[15px] font-medium text-ink">數量</span>
+          <div class="stepper">
+            <button @click="decrease" :disabled="quantity <= 1" class="stepper-btn size-12 text-lg" aria-label="減少數量">−</button>
+            <span class="flex h-12 w-14 items-center justify-center text-lg">{{ quantity }}</span>
+            <button @click="increase" :disabled="quantity >= product.stock" class="stepper-btn size-12 text-lg" aria-label="增加數量">+</button>
+          </div>
+        </div>
+
+        <button
+          @click="addToCart"
+          :disabled="adding || product.stock <= 0"
+          class="btn-primary w-full py-[18px] text-[17px]"
+        >
+          <%- include('../partials/icon', { name: 'shopping-bag' }) %>
+          {{ product.stock <= 0 ? '已售完' : '加入購物車' }}
+        </button>
+
+        <!-- Purchase notes -->
+        <div class="flex flex-col gap-2.5 border-l-4 border-saffron py-1 pl-5">
+          <h3 class="font-display text-lg font-bold text-ink">購買須知</h3>
+          <p class="text-sm text-ink-soft">花材依季節供應，實際花束可能略有差異</p>
+          <p class="text-sm text-ink-soft">台北市區中午前下單，當日配送</p>
+          <p class="text-sm text-ink-soft">消費滿 NT$ 500 免運費</p>
         </div>
       </div>
+    </section>
 
-      <button
-        @click="addToCart"
-        :disabled="adding || product.stock <= 0"
-        class="w-full bg-rose-primary text-white py-3 rounded-full text-sm font-medium hover:bg-rose-dark transition-colors disabled:opacity-50"
-      >
-        {{ product.stock <= 0 ? '已售完' : '加入購物車' }}
-      </button>
-
-      <!-- Purchase Notes -->
-      <div class="mt-8 bg-blush rounded-xl p-5">
-        <h3 class="font-medium text-text-primary mb-2 text-sm">購買須知</h3>
-        <ul class="text-text-muted text-xs space-y-1.5">
-          <li>- 花材依據季節供應，實際花束可能略有差異</li>
-          <li>- 台北市區可享當日配送服務</li>
-          <li>- 消費滿 NT$ 500 享免運優惠</li>
-        </ul>
+    <!-- More products -->
+    <section v-if="related.length > 0" class="bg-lilac">
+      <div class="container-page flex flex-col gap-8 pt-14 pb-16 md:gap-10 md:pt-[72px] md:pb-24">
+        <h2 class="font-display text-[28px] font-black text-ink md:text-4xl">也看看這些花</h2>
+        <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-[55px]">
+          <article
+            v-for="item in related"
+            :key="item.id"
+            @click="goToProduct(item.id)"
+            class="group flex cursor-pointer flex-col gap-4"
+          >
+            <div class="aspect-[390/360] overflow-hidden rounded-[2px] bg-image-fallback">
+              <img
+                :src="item.image_url || fallbackImage"
+                :alt="item.name"
+                class="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <h3 class="font-display text-[22px] font-bold text-ink">{{ item.name }}</h3>
+            <div class="flex items-center justify-between gap-3">
+              <span class="price-tag">NT$ {{ item.price.toLocaleString() }}</span>
+              <button
+                @click.stop="addRelated(item)"
+                :disabled="item.stock <= 0"
+                class="btn-outline px-4 py-[9px] text-sm"
+              >
+                {{ item.stock <= 0 ? '已售完' : '加入購物車' }}
+              </button>
+            </div>
+          </article>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
+  </template>
 </div>

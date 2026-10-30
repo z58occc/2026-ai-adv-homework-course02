@@ -1,0 +1,4315 @@
+{
+  "version": "2.20",
+  "children": [
+    {
+      "type": "frame",
+      "id": "bi8Au",
+      "x": 0,
+      "y": 0,
+      "name": "首頁",
+      "clip": true,
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "pRfUV",
+          "type": "ref",
+          "ref": "AYAdi",
+          "name": "Header Instance",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "Lb9vn",
+          "name": "Hero",
+          "width": "fill_container",
+          "gap": 72,
+          "padding": [
+            72,
+            80
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "n6uT1",
+              "name": "Hero Copy",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 28,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "otjIz",
+                  "name": "Hero Headline",
+                  "fill": "$ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "今早進貨的花，\n今天送到你手上",
+                  "lineHeight": 1.25,
+                  "fontFamily": "$font-display",
+                  "fontSize": 68,
+                  "fontWeight": "900"
+                },
+                {
+                  "type": "text",
+                  "id": "hwCwW",
+                  "name": "Hero Body",
+                  "fill": "$ink-soft",
+                  "textGrowth": "fixed-width",
+                  "width": 460,
+                  "content": "每日清晨從花市挑回當季鮮花，由花藝師手工包紮。台北市區中午前下單，當天送達。",
+                  "lineHeight": 1.8,
+                  "fontFamily": "$font-body",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "e0PcaP",
+                  "name": "Hero CTA",
+                  "fill": "$ink",
+                  "cornerRadius": 4,
+                  "padding": [
+                    16,
+                    32
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "n92YRH",
+                      "name": "CTA Label",
+                      "fill": "$paper",
+                      "content": "選購今日花材",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "za0o7",
+              "name": "Hero Image Wrap",
+              "width": 560,
+              "height": 600,
+              "layout": "none",
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": [
+                    240,
+                    240,
+                    2,
+                    2
+                  ],
+                  "id": "PLRkC",
+                  "x": 0,
+                  "y": 0,
+                  "name": "Hero Image",
+                  "metadata": {
+                    "type": "unsplash",
+                    "username": "slava27",
+                    "link": "https://unsplash.com/@slava27",
+                    "author": "Slava"
+                  },
+                  "fill": {
+                    "type": "image",
+                    "enabled": true,
+                    "url": "https://images.unsplash.com/photo-1615385639736-362b69696227?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ3NTN8&ixlib=rb-4.1.0&q=80&w=1080",
+                    "mode": "cover"
+                  },
+                  "width": 560,
+                  "height": 600
+                },
+                {
+                  "type": "frame",
+                  "id": "cuPD6",
+                  "x": -40,
+                  "y": 470,
+                  "name": "Hero Tag",
+                  "rotation": 6.000000000000001,
+                  "fill": "$saffron",
+                  "cornerRadius": 3,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    18,
+                    26,
+                    18,
+                    40
+                  ],
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "QhCs4",
+                      "layoutPosition": "absolute",
+                      "x": 14,
+                      "y": 14,
+                      "name": "Tag Hole",
+                      "fill": "$paper",
+                      "width": 10,
+                      "height": 10
+                    },
+                    {
+                      "type": "text",
+                      "id": "aDpR6",
+                      "name": "Tag Title",
+                      "fill": "$ink",
+                      "content": "今日現貨",
+                      "fontFamily": "$font-display",
+                      "fontSize": 28,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "text",
+                      "id": "oVkf9",
+                      "name": "Tag Sub",
+                      "fill": "$ink",
+                      "content": "12 款花材，賣完為止",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "DTHJP",
+          "name": "Service Band",
+          "width": "fill_container",
+          "fill": "$ink",
+          "padding": [
+            22,
+            80
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Kk5BD",
+              "name": "台北市區當日配送",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "Z95sB",
+                  "name": "Icon",
+                  "width": 22,
+                  "height": 22,
+                  "icon": "truck",
+                  "library": "lucide",
+                  "fill": "$saffron"
+                },
+                {
+                  "type": "text",
+                  "id": "fxvIl",
+                  "name": "台北市區當日配送",
+                  "fill": "$paper",
+                  "content": "台北市區當日配送",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "VJvtb",
+              "name": "每束花手工包裝",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "m7KbmN",
+                  "name": "Icon",
+                  "width": 22,
+                  "height": 22,
+                  "icon": "gift",
+                  "library": "lucide",
+                  "fill": "$saffron"
+                },
+                {
+                  "type": "text",
+                  "id": "COfDT",
+                  "name": "每束花手工包裝",
+                  "fill": "$paper",
+                  "content": "每束花手工包裝",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "geeF0",
+              "name": "消費滿 NT$ 500 免運",
+              "gap": 12,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "qnUHl",
+                  "name": "Icon",
+                  "width": 22,
+                  "height": 22,
+                  "icon": "badge-check",
+                  "library": "lucide",
+                  "fill": "$saffron"
+                },
+                {
+                  "type": "text",
+                  "id": "llena",
+                  "name": "消費滿 NT$ 500 免運",
+                  "fill": "$paper",
+                  "content": "消費滿 NT$ 500 免運",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "HHHV2",
+          "name": "Products Section",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 56,
+          "padding": [
+            96,
+            80,
+            80,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "wAVH2",
+              "name": "Section Head",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "HbRJp",
+                  "name": "Section Title",
+                  "fill": "$ink",
+                  "content": "本週花材",
+                  "fontFamily": "$font-display",
+                  "fontSize": 48,
+                  "fontWeight": "900"
+                },
+                {
+                  "type": "text",
+                  "id": "A2tmk",
+                  "name": "Section Note",
+                  "fill": "$ink-soft",
+                  "content": "花材依季節供應，實際花束略有差異",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "nYWWQ",
+              "name": "Product Grid",
+              "width": "fill_container",
+              "gap": 55,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "paYBD",
+                  "name": "Column 1",
+                  "layout": "vertical",
+                  "gap": 56,
+                  "children": [
+                    {
+                      "id": "X8SMEv",
+                      "type": "ref",
+                      "ref": "WCYwS",
+                      "name": "粉霧牡丹花束",
+                      "descendants": {
+                        "D2QXaR": {
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1656056971530-641871b3bce3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ3NjV8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "cover"
+                          }
+                        },
+                        "fXJHZ": {
+                          "content": "粉霧牡丹花束"
+                        },
+                        "FLIQF/FyXGI": {
+                          "content": "NT$ 1,280"
+                        }
+                      }
+                    },
+                    {
+                      "id": "GOeck",
+                      "type": "ref",
+                      "ref": "WCYwS",
+                      "name": "薰衣草乾燥束",
+                      "descendants": {
+                        "D2QXaR": {
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1532109676976-49323426ef1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ3NjV8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "cover"
+                          }
+                        },
+                        "fXJHZ": {
+                          "content": "薰衣草乾燥束"
+                        },
+                        "FLIQF/FyXGI": {
+                          "content": "NT$ 520"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "SpCFa",
+                  "name": "Column 2",
+                  "layout": "vertical",
+                  "gap": 56,
+                  "padding": [
+                    64,
+                    0,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "id": "WaTaL",
+                      "type": "ref",
+                      "ref": "WCYwS",
+                      "name": "荷蘭鬱金香",
+                      "descendants": {
+                        "D2QXaR": {
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1616745036869-7c11a4e7450c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ3NjV8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "cover"
+                          }
+                        },
+                        "fXJHZ": {
+                          "content": "荷蘭鬱金香"
+                        },
+                        "FLIQF/FyXGI": {
+                          "content": "NT$ 680"
+                        }
+                      }
+                    },
+                    {
+                      "id": "r2Kos",
+                      "type": "ref",
+                      "ref": "WCYwS",
+                      "name": "向日葵小花束",
+                      "descendants": {
+                        "D2QXaR": {
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1599784587193-41603e63821f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ3NjV8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "cover"
+                          }
+                        },
+                        "fXJHZ": {
+                          "content": "向日葵小花束"
+                        },
+                        "FLIQF/FyXGI": {
+                          "content": "NT$ 450"
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "UZUo8",
+                  "name": "Column 3",
+                  "layout": "vertical",
+                  "gap": 56,
+                  "children": [
+                    {
+                      "id": "sL4ui",
+                      "type": "ref",
+                      "ref": "WCYwS",
+                      "name": "法式玫瑰花束",
+                      "descendants": {
+                        "D2QXaR": {
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1539346254710-b6d86e095035?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ3NjV8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "cover"
+                          }
+                        },
+                        "fXJHZ": {
+                          "content": "法式玫瑰花束"
+                        },
+                        "FLIQF/FyXGI": {
+                          "content": "NT$ 980"
+                        }
+                      }
+                    },
+                    {
+                      "id": "fc2HS",
+                      "type": "ref",
+                      "ref": "WCYwS",
+                      "name": "尤加利葉束",
+                      "descendants": {
+                        "D2QXaR": {
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1604014057051-a155e33941b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ3NjV8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "cover"
+                          }
+                        },
+                        "fXJHZ": {
+                          "content": "尤加利葉束"
+                        },
+                        "FLIQF/FyXGI": {
+                          "content": "NT$ 380"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "VJOp0",
+              "name": "Pagination",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "CpDXP",
+                  "name": "Page 1",
+                  "width": 40,
+                  "height": 40,
+                  "fill": "$ink",
+                  "cornerRadius": 4,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "KeOJo",
+                      "name": "Page Number",
+                      "fill": "$paper",
+                      "content": "1",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "ogAQ7",
+                  "name": "Page 2",
+                  "width": 40,
+                  "height": 40,
+                  "fill": "#00000000",
+                  "cornerRadius": 4,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wiFhN",
+                      "name": "Page Number",
+                      "fill": "$ink",
+                      "content": "2",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "XTcIo",
+                  "name": "Page 3",
+                  "width": 40,
+                  "height": 40,
+                  "fill": "#00000000",
+                  "cornerRadius": 4,
+                  "stroke": "$line",
+                  "strokeWidth": 1,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "UW0Ce",
+                      "name": "Page Number",
+                      "fill": "$ink",
+                      "content": "3",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "jZZM0",
+          "name": "Brand Story",
+          "width": "fill_container",
+          "fill": "#E6E0F0",
+          "gap": 80,
+          "padding": 80,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 2,
+              "id": "E1vqI",
+              "name": "Florist Image",
+              "metadata": {
+                "type": "unsplash",
+                "username": "elcarito",
+                "link": "https://unsplash.com/@elcarito",
+                "author": "Carlos Torres"
+              },
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1630515053854-10866789b92b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ3NzZ8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "cover"
+              },
+              "width": 560,
+              "height": 460
+            },
+            {
+              "type": "frame",
+              "id": "mCgkO",
+              "name": "Story Copy",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "NmIca",
+                  "name": "Story Title",
+                  "fill": "$ink",
+                  "content": "專心做好一束花",
+                  "fontFamily": "$font-display",
+                  "fontSize": 44,
+                  "fontWeight": "900"
+                },
+                {
+                  "type": "text",
+                  "id": "hznwz",
+                  "name": "Story Body",
+                  "fill": "$ink-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "花漾生活 2020 年開在台北，只做一件事：把每天早上花市最好的花，原樣帶到你手上。花藝師依當季花況搭配，不囤貨、不染色，賣完就是賣完。",
+                  "lineHeight": 1.9,
+                  "fontFamily": "$font-body",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "GTOF5",
+                  "name": "Story Quote",
+                  "fill": "$hydrangea",
+                  "content": "每一束花，都是一份用心的禮物。",
+                  "fontFamily": "$font-display",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "J6b8E",
+          "name": "Reviews",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            96,
+            80
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "bMDwr",
+              "name": "Reviews Title",
+              "fill": "$ink",
+              "content": "收到花的人怎麼說",
+              "fontFamily": "$font-display",
+              "fontSize": 40,
+              "fontWeight": "900"
+            },
+            {
+              "type": "frame",
+              "id": "ei0Wr",
+              "name": "Review Row",
+              "width": "fill_container",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "w6u8fY",
+                  "name": "Review 小美",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": [
+                    0,
+                    40,
+                    0,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "co096",
+                      "name": "Quote",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "「花束非常漂亮，包裝精緻，送給媽媽她超開心的。配送也很準時。」",
+                      "lineHeight": 1.7,
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "QAGLC",
+                      "name": "Reviewer",
+                      "fill": "$ink-soft",
+                      "content": "小美",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "cudYy",
+                  "name": "Review 阿明",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "left": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": [
+                    0,
+                    40
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wlp88",
+                      "name": "Quote",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "「第二次購買了，品質一如既往。花材新鮮，整體搭配很有美感。」",
+                      "lineHeight": 1.7,
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "PVjEo",
+                      "name": "Reviewer",
+                      "fill": "$ink-soft",
+                      "content": "阿明",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "YYY3f",
+                  "name": "Review 大衛",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "left": 1
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": [
+                    0,
+                    40
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "hJPhK",
+                      "name": "Quote",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "「女朋友收到花束超感動，會再回購，推薦給大家。」",
+                      "lineHeight": 1.7,
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "vliq0",
+                      "name": "Reviewer",
+                      "fill": "$ink-soft",
+                      "content": "大衛",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "I2F6DM",
+          "type": "ref",
+          "ref": "j9MXoL",
+          "name": "Footer Instance",
+          "width": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "AYAdi",
+      "x": 0,
+      "y": -200,
+      "name": "Header",
+      "reusable": true,
+      "width": 1440,
+      "height": 76,
+      "fill": "$paper",
+      "stroke": "$line",
+      "strokeWidth": {
+        "bottom": 1
+      },
+      "padding": [
+        0,
+        80
+      ],
+      "justifyContent": "space_between",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "YePZV",
+          "name": "Logo",
+          "gap": 10,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "L650t",
+              "name": "Logo Mark",
+              "width": 12,
+              "height": 12,
+              "fill": "$saffron",
+              "cornerRadius": 6
+            },
+            {
+              "type": "text",
+              "id": "jaMS9",
+              "name": "Brand",
+              "fill": "$ink",
+              "content": "花漾生活",
+              "fontFamily": "$font-display",
+              "fontSize": 26,
+              "fontWeight": "900"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "cJNYp",
+          "name": "Nav",
+          "gap": 40,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "c61vKL",
+              "name": "Nav Products",
+              "fill": "$ink",
+              "content": "商品列表",
+              "fontFamily": "$font-body",
+              "fontSize": 15,
+              "fontWeight": "500"
+            },
+            {
+              "type": "frame",
+              "id": "uMtdM",
+              "name": "Nav Cart",
+              "gap": 8,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "FfDVZ",
+                  "name": "Nav Cart Label",
+                  "fill": "$ink",
+                  "content": "購物車",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                },
+                {
+                  "type": "frame",
+                  "id": "KhtxK",
+                  "name": "Cart Badge",
+                  "width": 20,
+                  "height": 20,
+                  "fill": "$saffron",
+                  "cornerRadius": 10,
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ox7T1",
+                      "name": "Cart Count",
+                      "fill": "$ink",
+                      "content": "2",
+                      "fontFamily": "$font-body",
+                      "fontSize": 12,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "mJJ6v",
+              "name": "Nav Orders",
+              "fill": "$ink",
+              "content": "我的訂單",
+              "fontFamily": "$font-body",
+              "fontSize": 15,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rvMM2",
+          "name": "Login Button",
+          "fill": "$ink",
+          "cornerRadius": 4,
+          "padding": [
+            10,
+            22
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "HozME",
+              "name": "Login Label",
+              "fill": "$paper",
+              "content": "登入",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "500"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "j9MXoL",
+      "x": 1520,
+      "y": -200,
+      "name": "Footer",
+      "reusable": true,
+      "width": 1440,
+      "fill": "$ink",
+      "padding": [
+        56,
+        80
+      ],
+      "justifyContent": "space_between",
+      "children": [
+        {
+          "type": "frame",
+          "id": "HGU5F",
+          "name": "Footer Brand",
+          "layout": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "type": "text",
+              "id": "WoY10",
+              "name": "Footer Brand Name",
+              "fill": "$paper",
+              "content": "花漾生活",
+              "fontFamily": "$font-display",
+              "fontSize": 28,
+              "fontWeight": "900"
+            },
+            {
+              "type": "text",
+              "id": "r1k5oO",
+              "name": "Footer Tagline",
+              "fill": "#BDB2CC",
+              "content": "每日清晨進貨，手工包裝，台北市區當日送達。",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "CPwkb",
+          "name": "Footer Links",
+          "layout": "vertical",
+          "gap": 12,
+          "alignItems": "end",
+          "children": [
+            {
+              "type": "text",
+              "id": "uSKdc",
+              "name": "Footer Nav",
+              "fill": "$paper",
+              "content": "商品列表　購物車　我的訂單",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "text",
+              "id": "z8yw30",
+              "name": "Copyright",
+              "fill": "#BDB2CC",
+              "content": "© 2026 花漾生活 Flower Life",
+              "fontFamily": "$font-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "v3IS7",
+      "x": 3040,
+      "y": -200,
+      "name": "Price Tag",
+      "reusable": true,
+      "fill": "$saffron",
+      "cornerRadius": 3,
+      "padding": [
+        6,
+        14,
+        6,
+        28
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "ellipse",
+          "id": "SIDeB",
+          "layoutPosition": "absolute",
+          "x": 11,
+          "y": 11,
+          "name": "Tag Hole",
+          "fill": "$paper",
+          "width": 8,
+          "height": 8
+        },
+        {
+          "type": "text",
+          "id": "FyXGI",
+          "name": "Price",
+          "fill": "$ink",
+          "content": "NT$ 1,280",
+          "fontFamily": "$font-display",
+          "fontSize": 17,
+          "fontWeight": "900"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "WCYwS",
+      "x": 3040,
+      "y": -120,
+      "name": "Product Card",
+      "reusable": true,
+      "width": 390,
+      "layout": "vertical",
+      "gap": 16,
+      "children": [
+        {
+          "type": "frame",
+          "id": "D2QXaR",
+          "name": "Product Image",
+          "width": "fill_container",
+          "height": 470,
+          "fill": "#CFC7DB",
+          "cornerRadius": 2
+        },
+        {
+          "type": "text",
+          "id": "fXJHZ",
+          "name": "Product Name",
+          "fill": "$ink",
+          "content": "粉霧牡丹花束",
+          "fontFamily": "$font-display",
+          "fontSize": 22,
+          "fontWeight": "700"
+        },
+        {
+          "type": "frame",
+          "id": "kv8PH",
+          "name": "Card Row",
+          "width": "fill_container",
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "id": "FLIQF",
+              "type": "ref",
+              "ref": "v3IS7",
+              "name": "Price Tag Instance"
+            },
+            {
+              "type": "frame",
+              "id": "C7AZX",
+              "name": "Add Button",
+              "cornerRadius": 4,
+              "stroke": "$ink",
+              "strokeWidth": 1.5,
+              "gap": 6,
+              "padding": [
+                9,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "TMAkB",
+                  "name": "Add Label",
+                  "fill": "$ink",
+                  "content": "加入購物車",
+                  "fontFamily": "$font-body",
+                  "fontSize": 14,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "kXZ34",
+      "x": 1600,
+      "y": 0,
+      "name": "商品詳情",
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "zxnXS",
+          "type": "ref",
+          "ref": "AYAdi",
+          "name": "Header Instance",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "EjgE7",
+          "name": "Breadcrumb",
+          "width": "fill_container",
+          "gap": 10,
+          "padding": [
+            28,
+            80,
+            0,
+            80
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "bwUfc",
+              "name": "商品列表",
+              "fill": "$ink-soft",
+              "content": "商品列表",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "icon",
+              "id": "vTsr0",
+              "name": "Chevron",
+              "width": 14,
+              "height": 14,
+              "icon": "chevron-right",
+              "library": "lucide",
+              "fill": "$ink-soft"
+            },
+            {
+              "type": "text",
+              "id": "gQLZz",
+              "name": "粉霧牡丹花束",
+              "fill": "$ink",
+              "content": "粉霧牡丹花束",
+              "fontFamily": "$font-body",
+              "fontSize": 14,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "XO881",
+          "name": "Product Main",
+          "width": "fill_container",
+          "gap": 80,
+          "padding": [
+            32,
+            80,
+            96,
+            80
+          ],
+          "children": [
+            {
+              "type": "rectangle",
+              "cornerRadius": 2,
+              "id": "x2JK3",
+              "name": "Product Photo",
+              "metadata": {
+                "type": "unsplash",
+                "username": "jazminantoinette",
+                "link": "https://unsplash.com/@jazminantoinette",
+                "author": "Jazmin Quaynor"
+              },
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1497193100219-898d1032b664?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ4MTZ8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "cover"
+              },
+              "width": 640,
+              "height": 780
+            },
+            {
+              "type": "frame",
+              "id": "JRBI9",
+              "name": "Product Info",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 28,
+              "padding": [
+                24,
+                0,
+                0,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Ol6qN",
+                  "name": "Product Title",
+                  "fill": "$ink",
+                  "content": "粉霧牡丹花束",
+                  "fontFamily": "$font-display",
+                  "fontSize": 52,
+                  "fontWeight": "900"
+                },
+                {
+                  "id": "admtj",
+                  "type": "ref",
+                  "ref": "v3IS7",
+                  "name": "Price Tag Instance",
+                  "padding": [
+                    10,
+                    22,
+                    10,
+                    38
+                  ],
+                  "descendants": {
+                    "FyXGI": {
+                      "content": "NT$ 1,280",
+                      "fontSize": 28
+                    }
+                  }
+                },
+                {
+                  "type": "frame",
+                  "id": "ZU99C",
+                  "name": "Stock Status",
+                  "gap": 8,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "e28UU0",
+                      "name": "Check",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "check",
+                      "library": "lucide",
+                      "fill": "$fern"
+                    },
+                    {
+                      "type": "text",
+                      "id": "zaT3f",
+                      "name": "Stock Text",
+                      "fill": "$fern",
+                      "content": "尚有 12 件現貨",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "s0pSvO",
+                  "name": "Description",
+                  "fill": "$ink-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "五月進口的粉霧牡丹，搭配洋桔梗與尤加利葉，以牛皮紙手工包紮。花苞約三成開，擺放兩天後綻放最盛，適合送給長輩或自己。",
+                  "lineHeight": 1.9,
+                  "fontFamily": "$font-body",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "A0kD72",
+                  "name": "Quantity Row",
+                  "gap": 20,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "jCoUh",
+                      "name": "數量",
+                      "fill": "$ink",
+                      "content": "數量",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "W6t9mg",
+                      "name": "Quantity Stepper",
+                      "cornerRadius": 4,
+                      "stroke": "$ink",
+                      "strokeWidth": 1.5,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "q6WbO",
+                          "name": "Stepper −",
+                          "width": 48,
+                          "height": 48,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "t5KA08",
+                              "name": "Stepper Label",
+                              "fill": "$ink",
+                              "content": "−",
+                              "fontFamily": "$font-body",
+                              "fontSize": 18,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "P4nDOc",
+                          "name": "Stepper 1",
+                          "width": 56,
+                          "height": 48,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "X4CZL",
+                              "name": "Stepper Label",
+                              "fill": "$ink",
+                              "content": "1",
+                              "fontFamily": "$font-body",
+                              "fontSize": 18,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "WLFvy",
+                          "name": "Stepper +",
+                          "width": 48,
+                          "height": 48,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "mn4hk",
+                              "name": "Stepper Label",
+                              "fill": "$ink",
+                              "content": "+",
+                              "fontFamily": "$font-body",
+                              "fontSize": 18,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "RZ8lt",
+                  "name": "Add to Cart",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "cornerRadius": 4,
+                  "gap": 10,
+                  "padding": [
+                    18,
+                    0
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "hDPS1",
+                      "name": "Cart Icon",
+                      "width": 20,
+                      "height": 20,
+                      "icon": "shopping-bag",
+                      "library": "lucide",
+                      "fill": "$paper"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pt6S7",
+                      "name": "Add Label",
+                      "fill": "$paper",
+                      "content": "加入購物車",
+                      "fontFamily": "$font-body",
+                      "fontSize": 17,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "i728Zz",
+                  "name": "Purchase Notes",
+                  "width": "fill_container",
+                  "stroke": "$saffron",
+                  "strokeWidth": {
+                    "left": 4
+                  },
+                  "layout": "vertical",
+                  "gap": 10,
+                  "padding": [
+                    4,
+                    0,
+                    4,
+                    20
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "kZOFh",
+                      "name": "購買須知",
+                      "fill": "$ink",
+                      "content": "購買須知",
+                      "fontFamily": "$font-display",
+                      "fontSize": 18,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "RgboI",
+                      "name": "Note",
+                      "fill": "$ink-soft",
+                      "content": "花材依季節供應，實際花束可能略有差異",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "lA2Hw",
+                      "name": "Note",
+                      "fill": "$ink-soft",
+                      "content": "台北市區中午前下單，當日配送",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "hnPdy",
+                      "name": "Note",
+                      "fill": "$ink-soft",
+                      "content": "消費滿 NT$ 500 免運費",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "o3XxQI",
+          "name": "More Products",
+          "width": "fill_container",
+          "fill": "#E6E0F0",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            72,
+            80,
+            96,
+            80
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "Q8CvtG",
+              "name": "More Title",
+              "fill": "$ink",
+              "content": "也看看這些花",
+              "fontFamily": "$font-display",
+              "fontSize": 36,
+              "fontWeight": "900"
+            },
+            {
+              "type": "frame",
+              "id": "TZJTR",
+              "name": "More Row",
+              "width": "fill_container",
+              "gap": 55,
+              "children": [
+                {
+                  "id": "q6cK1F",
+                  "type": "ref",
+                  "ref": "WCYwS",
+                  "name": "荷蘭鬱金香",
+                  "descendants": {
+                    "D2QXaR": {
+                      "height": 360,
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "https://images.unsplash.com/photo-1614888773568-b6ca94359d8d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ4MTZ8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "mode": "cover"
+                      }
+                    },
+                    "fXJHZ": {
+                      "content": "荷蘭鬱金香"
+                    },
+                    "FLIQF/FyXGI": {
+                      "content": "NT$ 680"
+                    }
+                  }
+                },
+                {
+                  "id": "LyQLG",
+                  "type": "ref",
+                  "ref": "WCYwS",
+                  "name": "法式玫瑰花束",
+                  "descendants": {
+                    "D2QXaR": {
+                      "height": 360,
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "https://images.unsplash.com/photo-1589458456444-f7158a7e8a4f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ4MTZ8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "mode": "cover"
+                      }
+                    },
+                    "fXJHZ": {
+                      "content": "法式玫瑰花束"
+                    },
+                    "FLIQF/FyXGI": {
+                      "content": "NT$ 980"
+                    }
+                  }
+                },
+                {
+                  "id": "YJZ6U",
+                  "type": "ref",
+                  "ref": "WCYwS",
+                  "name": "向日葵小花束",
+                  "descendants": {
+                    "D2QXaR": {
+                      "height": 360,
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "https://images.unsplash.com/photo-1534430449256-b8a0d6d86a41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ4MTZ8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "mode": "cover"
+                      }
+                    },
+                    "fXJHZ": {
+                      "content": "向日葵小花束"
+                    },
+                    "FLIQF/FyXGI": {
+                      "content": "NT$ 450"
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "xg8Ov",
+          "type": "ref",
+          "ref": "j9MXoL",
+          "name": "Footer Instance",
+          "width": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "b21i5q",
+      "x": 3200,
+      "y": 0,
+      "name": "購物車",
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "WUyuF",
+          "type": "ref",
+          "ref": "AYAdi",
+          "name": "Header Instance",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "zvYee",
+          "name": "Cart Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            56,
+            80,
+            96,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "lmE3h",
+              "name": "Cart Head",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "C7nkU",
+                  "name": "Page Title",
+                  "fill": "$ink",
+                  "content": "購物車",
+                  "fontFamily": "$font-display",
+                  "fontSize": 52,
+                  "fontWeight": "900"
+                },
+                {
+                  "type": "frame",
+                  "id": "E8VZkb",
+                  "name": "Free Shipping Status",
+                  "fill": "#DCE9DF",
+                  "cornerRadius": 4,
+                  "gap": 10,
+                  "padding": [
+                    10,
+                    18
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "Jvjdl",
+                      "name": "Check",
+                      "width": 18,
+                      "height": 18,
+                      "icon": "check",
+                      "library": "lucide",
+                      "fill": "$fern"
+                    },
+                    {
+                      "type": "text",
+                      "id": "jPSEz",
+                      "name": "Free Shipping Text",
+                      "fill": "$fern",
+                      "content": "已達免運門檻",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Ts693",
+              "name": "Cart Columns",
+              "width": "fill_container",
+              "gap": 72,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "IGka8",
+                  "name": "Cart Items",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "cbQ4F",
+                      "name": "Cart Item 粉霧牡丹花束",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "top": 1,
+                        "bottom": 1
+                      },
+                      "gap": 24,
+                      "padding": [
+                        28,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 2,
+                          "id": "Swxk6",
+                          "name": "Thumb",
+                          "metadata": {
+                            "type": "unsplash",
+                            "username": "puzatova",
+                            "link": "https://unsplash.com/@puzatova",
+                            "author": "Katie Puzatova"
+                          },
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1706886979801-3b1c26d143e3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ4MzJ8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "cover"
+                          },
+                          "width": 112,
+                          "height": 112
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Jh0yT",
+                          "name": "Item Name",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "pSdnX",
+                              "name": "Name",
+                              "fill": "$ink",
+                              "content": "粉霧牡丹花束",
+                              "fontFamily": "$font-display",
+                              "fontSize": 22,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "xJu3k",
+                              "name": "Unit Price",
+                              "fill": "$ink-soft",
+                              "content": "NT$ 1,280",
+                              "fontFamily": "$font-body",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "v6pgO",
+                          "name": "Stepper",
+                          "cornerRadius": 4,
+                          "stroke": "$ink",
+                          "strokeWidth": 1.5,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "wVeGH",
+                              "name": "Stepper −",
+                              "width": 40,
+                              "height": 40,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "SkldQ",
+                                  "name": "Stepper Label",
+                                  "fill": "$ink",
+                                  "content": "−",
+                                  "fontFamily": "$font-body",
+                                  "fontSize": 16,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "W9krS",
+                              "name": "Stepper 1",
+                              "width": 44,
+                              "height": 40,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "XzQoP",
+                                  "name": "Stepper Label",
+                                  "fill": "$ink",
+                                  "content": "1",
+                                  "fontFamily": "$font-body",
+                                  "fontSize": 16,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "XKNfQ",
+                              "name": "Stepper +",
+                              "width": 40,
+                              "height": 40,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "D69xmi",
+                                  "name": "Stepper Label",
+                                  "fill": "$ink",
+                                  "content": "+",
+                                  "fontFamily": "$font-body",
+                                  "fontSize": 16,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "qCBqA",
+                          "name": "Line Total",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 120,
+                          "content": "NT$ 1,280",
+                          "textAlign": "right",
+                          "fontFamily": "$font-display",
+                          "fontSize": 20,
+                          "fontWeight": "900"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "PXmnf",
+                          "name": "Remove",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "trash-2",
+                          "library": "lucide",
+                          "fill": "$ink-soft"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "DVdLY",
+                      "name": "Cart Item 荷蘭鬱金香",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "gap": 24,
+                      "padding": [
+                        28,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "rectangle",
+                          "cornerRadius": 2,
+                          "id": "MZ32l",
+                          "name": "Thumb",
+                          "metadata": {
+                            "type": "unsplash",
+                            "username": "nathanvdg",
+                            "link": "https://unsplash.com/@nathanvdg",
+                            "author": "Nathan Van de Graaf"
+                          },
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "https://images.unsplash.com/photo-1617043786457-46c8f9c8ec2e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ4MzJ8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "mode": "cover"
+                          },
+                          "width": 112,
+                          "height": 112
+                        },
+                        {
+                          "type": "frame",
+                          "id": "mBVan",
+                          "name": "Item Name",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "oQmtw",
+                              "name": "Name",
+                              "fill": "$ink",
+                              "content": "荷蘭鬱金香",
+                              "fontFamily": "$font-display",
+                              "fontSize": 22,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "text",
+                              "id": "CzGeu",
+                              "name": "Unit Price",
+                              "fill": "$ink-soft",
+                              "content": "NT$ 680",
+                              "fontFamily": "$font-body",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "kjaBT",
+                          "name": "Stepper",
+                          "cornerRadius": 4,
+                          "stroke": "$ink",
+                          "strokeWidth": 1.5,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "GOPxJ",
+                              "name": "Stepper −",
+                              "width": 40,
+                              "height": 40,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "mDOAE",
+                                  "name": "Stepper Label",
+                                  "fill": "$ink",
+                                  "content": "−",
+                                  "fontFamily": "$font-body",
+                                  "fontSize": 16,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Zmau9",
+                              "name": "Stepper 2",
+                              "width": 44,
+                              "height": 40,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "hKAtz",
+                                  "name": "Stepper Label",
+                                  "fill": "$ink",
+                                  "content": "2",
+                                  "fontFamily": "$font-body",
+                                  "fontSize": 16,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "uchf6",
+                              "name": "Stepper +",
+                              "width": 40,
+                              "height": 40,
+                              "justifyContent": "center",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "mMuRw",
+                                  "name": "Stepper Label",
+                                  "fill": "$ink",
+                                  "content": "+",
+                                  "fontFamily": "$font-body",
+                                  "fontSize": 16,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "MmoUf",
+                          "name": "Line Total",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 120,
+                          "content": "NT$ 1,360",
+                          "textAlign": "right",
+                          "fontFamily": "$font-display",
+                          "fontSize": 20,
+                          "fontWeight": "900"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "Ou4YT",
+                          "name": "Remove",
+                          "width": 20,
+                          "height": 20,
+                          "icon": "trash-2",
+                          "library": "lucide",
+                          "fill": "$ink-soft"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "pqyin",
+                  "name": "Order Summary",
+                  "width": 400,
+                  "fill": "$surface",
+                  "cornerRadius": 4,
+                  "stroke": "$ink",
+                  "strokeWidth": 1.5,
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "t41uv",
+                      "name": "訂單摘要",
+                      "fill": "$ink",
+                      "content": "訂單摘要",
+                      "fontFamily": "$font-display",
+                      "fontSize": 24,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ZzMUe",
+                      "name": "商品小計",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Rt3TD",
+                          "name": "商品小計",
+                          "fill": "$ink-soft",
+                          "content": "商品小計",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "f8glEl",
+                          "name": "NT$ 2,640",
+                          "fill": "$ink",
+                          "content": "NT$ 2,640",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "f06zi",
+                      "name": "運費",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "b75Ucc",
+                          "name": "運費",
+                          "fill": "$ink-soft",
+                          "content": "運費",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gVfKl",
+                          "name": "免運",
+                          "fill": "$fern",
+                          "content": "免運",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "C3VDj",
+                      "name": "Total Row",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "top": 1
+                      },
+                      "padding": [
+                        20,
+                        0,
+                        0,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "q12kq",
+                          "name": "總計",
+                          "fill": "$ink",
+                          "content": "總計",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "pg8Ha",
+                          "name": "Total",
+                          "fill": "$ink",
+                          "content": "NT$ 2,640",
+                          "fontFamily": "$font-display",
+                          "fontSize": 30,
+                          "fontWeight": "900"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "iBdjC",
+                      "name": "Checkout Button",
+                      "width": "fill_container",
+                      "fill": "$ink",
+                      "cornerRadius": 4,
+                      "padding": [
+                        17,
+                        0
+                      ],
+                      "justifyContent": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "C0WEzH",
+                          "name": "Checkout Label",
+                          "fill": "$paper",
+                          "content": "前往結帳",
+                          "fontFamily": "$font-body",
+                          "fontSize": 17,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "X1RnsD",
+          "type": "ref",
+          "ref": "j9MXoL",
+          "name": "Footer Instance",
+          "width": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Q05iu",
+      "x": 4800,
+      "y": 0,
+      "name": "結帳",
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "jJPcn",
+          "type": "ref",
+          "ref": "AYAdi",
+          "name": "Header Instance",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "F7K7N",
+          "name": "Checkout Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            56,
+            80,
+            96,
+            80
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "N4uz4",
+              "name": "Page Title",
+              "fill": "$ink",
+              "content": "結帳",
+              "fontFamily": "$font-display",
+              "fontSize": 52,
+              "fontWeight": "900"
+            },
+            {
+              "type": "frame",
+              "id": "E0zgS5",
+              "name": "Checkout Columns",
+              "width": "fill_container",
+              "gap": 96,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "g9uLX",
+                  "name": "Shipping Form",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 36,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "I2YDZF",
+                      "name": "收件資訊",
+                      "fill": "$ink",
+                      "content": "收件資訊",
+                      "fontFamily": "$font-display",
+                      "fontSize": 26,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Y9uZeO",
+                      "name": "收件人姓名 Field",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "g1gd9",
+                          "name": "Label",
+                          "fill": "$ink-soft",
+                          "content": "收件人姓名",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "lYKLB",
+                          "name": "Input",
+                          "width": "fill_container",
+                          "stroke": "$ink",
+                          "strokeWidth": {
+                            "bottom": 1.5
+                          },
+                          "padding": [
+                            10,
+                            0,
+                            12,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "LUuIR",
+                              "name": "Placeholder",
+                              "fill": "#9A8FA8",
+                              "content": "請輸入收件人姓名",
+                              "fontFamily": "$font-body",
+                              "fontSize": 17,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "o3K1pJ",
+                      "name": "Email Field",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "uIvjJ",
+                          "name": "Label",
+                          "fill": "$ink-soft",
+                          "content": "Email",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "DLBf7",
+                          "name": "Input",
+                          "width": "fill_container",
+                          "stroke": "$ink",
+                          "strokeWidth": {
+                            "bottom": 1.5
+                          },
+                          "padding": [
+                            10,
+                            0,
+                            12,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "nG4yE",
+                              "name": "Placeholder",
+                              "fill": "#9A8FA8",
+                              "content": "請輸入 Email",
+                              "fontFamily": "$font-body",
+                              "fontSize": 17,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "pxv3s",
+                      "name": "收件地址 Field",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 10,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "W6tUw",
+                          "name": "Label",
+                          "fill": "$ink-soft",
+                          "content": "收件地址",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "EOUdn",
+                          "name": "Input",
+                          "width": "fill_container",
+                          "stroke": "$ink",
+                          "strokeWidth": {
+                            "bottom": 1.5
+                          },
+                          "padding": [
+                            10,
+                            0,
+                            12,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "X8Ukn1",
+                              "name": "Placeholder",
+                              "fill": "#9A8FA8",
+                              "content": "請輸入收件地址",
+                              "fontFamily": "$font-body",
+                              "fontSize": 17,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "Zbdyr",
+                      "name": "Delivery Note",
+                      "fill": "$ink-soft",
+                      "content": "台北市區中午前下單，當日配送。其他地區 2–3 天送達。",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "CLfuL",
+                  "name": "Order Summary",
+                  "width": 460,
+                  "fill": "$surface",
+                  "cornerRadius": 4,
+                  "stroke": "$ink",
+                  "strokeWidth": 1.5,
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "l05tvA",
+                      "name": "訂單摘要",
+                      "fill": "$ink",
+                      "content": "訂單摘要",
+                      "fontFamily": "$font-display",
+                      "fontSize": 24,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Rv5Bn",
+                      "name": "粉霧牡丹花束",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "x4erEW",
+                          "name": "Item",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "fgv1I",
+                              "name": "粉霧牡丹花束",
+                              "fill": "$ink",
+                              "content": "粉霧牡丹花束",
+                              "fontFamily": "$font-body",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "BoYoP",
+                              "name": "Qty",
+                              "fill": "$ink-soft",
+                              "content": "× 1",
+                              "fontFamily": "$font-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "GOghF",
+                          "name": "Line Price",
+                          "fill": "$ink",
+                          "content": "NT$ 1,280",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xMGh0",
+                      "name": "荷蘭鬱金香",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "rrTq2",
+                          "name": "Item",
+                          "gap": 12,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "AK4sN",
+                              "name": "荷蘭鬱金香",
+                              "fill": "$ink",
+                              "content": "荷蘭鬱金香",
+                              "fontFamily": "$font-body",
+                              "fontSize": 16,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "MKQOv",
+                              "name": "Qty",
+                              "fill": "$ink-soft",
+                              "content": "× 2",
+                              "fontFamily": "$font-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "vloQc",
+                          "name": "Line Price",
+                          "fill": "$ink",
+                          "content": "NT$ 1,360",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "FK6s6",
+                      "name": "商品小計",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "top": 1
+                      },
+                      "padding": [
+                        16,
+                        0,
+                        0,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SUxj4",
+                          "name": "商品小計",
+                          "fill": "$ink-soft",
+                          "content": "商品小計",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "U7l3K",
+                          "name": "NT$ 2,640",
+                          "fill": "$ink",
+                          "content": "NT$ 2,640",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Qxq0Z",
+                      "name": "運費",
+                      "width": "fill_container",
+                      "justifyContent": "space_between",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Bfrg0",
+                          "name": "運費",
+                          "fill": "$ink-soft",
+                          "content": "運費",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "VBOVF",
+                          "name": "免運",
+                          "fill": "$fern",
+                          "content": "免運",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "tx0u9",
+                      "name": "Total Row",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "top": 1
+                      },
+                      "padding": [
+                        20,
+                        0,
+                        0,
+                        0
+                      ],
+                      "justifyContent": "space_between",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "yyT5B",
+                          "name": "總計",
+                          "fill": "$ink",
+                          "content": "總計",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "zwza2",
+                          "name": "Total",
+                          "fill": "$ink",
+                          "content": "NT$ 2,640",
+                          "fontFamily": "$font-display",
+                          "fontSize": 30,
+                          "fontWeight": "900"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "X2TU8O",
+                      "name": "Submit Order",
+                      "width": "fill_container",
+                      "fill": "$ink",
+                      "cornerRadius": 4,
+                      "padding": [
+                        17,
+                        0
+                      ],
+                      "justifyContent": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MIl9d",
+                          "name": "Submit Label",
+                          "fill": "$paper",
+                          "content": "送出訂單",
+                          "fontFamily": "$font-body",
+                          "fontSize": 17,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "n1Xea",
+          "type": "ref",
+          "ref": "j9MXoL",
+          "name": "Footer Instance",
+          "width": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "DNv7K",
+      "x": 6400,
+      "y": 0,
+      "name": "登入",
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "x1T6co",
+          "type": "ref",
+          "ref": "AYAdi",
+          "name": "Header Instance",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "ARNGX",
+          "name": "Login Split",
+          "width": "fill_container",
+          "children": [
+            {
+              "type": "frame",
+              "id": "IyW7G",
+              "name": "Login Photo",
+              "metadata": {
+                "type": "unsplash",
+                "username": "d_ks11",
+                "link": "https://unsplash.com/@d_ks11",
+                "author": "Dominic Kurniawan Suryaputra"
+              },
+              "width": 640,
+              "height": 760,
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "https://images.unsplash.com/photo-1729409178086-809908699f05?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3OTMyODQ4NTF8&ixlib=rb-4.1.0&q=80&w=1080",
+                "mode": "cover"
+              },
+              "layout": "none",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "KYIqQ",
+                  "x": 48,
+                  "y": 640,
+                  "name": "Login Tag",
+                  "rotation": 3.0000000000000004,
+                  "fill": "$saffron",
+                  "cornerRadius": 3,
+                  "layout": "vertical",
+                  "gap": 4,
+                  "padding": [
+                    16,
+                    26,
+                    16,
+                    40
+                  ],
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "kYyqq",
+                      "layoutPosition": "absolute",
+                      "x": 14,
+                      "y": 14,
+                      "name": "Tag Hole",
+                      "fill": "$paper",
+                      "width": 10,
+                      "height": 10
+                    },
+                    {
+                      "type": "text",
+                      "id": "woxOn",
+                      "name": "Tag Title",
+                      "fill": "$ink",
+                      "content": "註冊即可查詢訂單",
+                      "fontFamily": "$font-display",
+                      "fontSize": 22,
+                      "fontWeight": "900"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "dIXrT",
+              "name": "Login Form",
+              "width": "fill_container",
+              "height": 760,
+              "layout": "vertical",
+              "gap": 36,
+              "padding": [
+                0,
+                120
+              ],
+              "justifyContent": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "XSLA1",
+                  "name": "Tabs",
+                  "gap": 32,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "sABTS",
+                      "name": "Tab Login",
+                      "fill": "$ink",
+                      "content": "登入",
+                      "fontFamily": "$font-display",
+                      "fontSize": 40,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "text",
+                      "id": "gIGdi",
+                      "name": "Tab Register",
+                      "fill": "#B9AFC6",
+                      "content": "註冊",
+                      "fontFamily": "$font-display",
+                      "fontSize": 40,
+                      "fontWeight": "900"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "X6Hzp",
+                  "name": "Email Field",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "dlySG",
+                      "name": "Label",
+                      "fill": "$ink-soft",
+                      "content": "Email",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "C3VTVO",
+                      "name": "Input",
+                      "width": "fill_container",
+                      "stroke": "$ink",
+                      "strokeWidth": {
+                        "bottom": 1.5
+                      },
+                      "padding": [
+                        10,
+                        0,
+                        12,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PmWQr",
+                          "name": "Placeholder",
+                          "fill": "#9A8FA8",
+                          "content": "請輸入 Email",
+                          "fontFamily": "$font-body",
+                          "fontSize": 17,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L6v6kl",
+                  "name": "密碼 Field",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 10,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "UlfYr",
+                      "name": "Label",
+                      "fill": "$ink-soft",
+                      "content": "密碼",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "V5Zn3Z",
+                      "name": "Input",
+                      "width": "fill_container",
+                      "stroke": "$ink",
+                      "strokeWidth": {
+                        "bottom": 1.5
+                      },
+                      "padding": [
+                        10,
+                        0,
+                        12,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "yqWGn",
+                          "name": "Placeholder",
+                          "fill": "#9A8FA8",
+                          "content": "請輸入密碼",
+                          "fontFamily": "$font-body",
+                          "fontSize": 17,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "A4TGv",
+                  "name": "Login Button",
+                  "width": "fill_container",
+                  "fill": "$ink",
+                  "cornerRadius": 4,
+                  "padding": [
+                    17,
+                    0
+                  ],
+                  "justifyContent": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "HXK7q",
+                      "name": "Login Label",
+                      "fill": "$paper",
+                      "content": "登入",
+                      "fontFamily": "$font-body",
+                      "fontSize": 17,
+                      "fontWeight": "500"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "Y435t",
+                  "name": "Switch Hint",
+                  "fill": "$hydrangea",
+                  "content": "還沒有帳號？切換到註冊",
+                  "fontFamily": "$font-body",
+                  "fontSize": 15,
+                  "fontWeight": "500"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "cZWHR",
+          "type": "ref",
+          "ref": "j9MXoL",
+          "name": "Footer Instance",
+          "width": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "gzlFA",
+      "x": 8000,
+      "y": 0,
+      "name": "訂單列表",
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "T1K1lV",
+          "type": "ref",
+          "ref": "AYAdi",
+          "name": "Header Instance",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "MaqK6",
+          "name": "Orders Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 40,
+          "padding": [
+            56,
+            80,
+            120,
+            80
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "BoEV0",
+              "name": "Page Title",
+              "fill": "$ink",
+              "content": "我的訂單",
+              "fontFamily": "$font-display",
+              "fontSize": 52,
+              "fontWeight": "900"
+            },
+            {
+              "type": "frame",
+              "id": "D88Lj",
+              "name": "Orders Table",
+              "width": "fill_container",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "h2ZUX1",
+                  "name": "Table Head",
+                  "width": "fill_container",
+                  "stroke": "$ink",
+                  "strokeWidth": {
+                    "bottom": 1.5
+                  },
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "x3uEn",
+                      "name": "Head 訂單編號",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "訂單編號",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "J9p3Vc",
+                      "name": "Head 下單日期",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": 260,
+                      "content": "下單日期",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "sD216",
+                      "name": "Head 金額",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": 200,
+                      "content": "金額",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "iq3el",
+                      "name": "Head 狀態",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": 200,
+                      "content": "狀態",
+                      "fontFamily": "$font-body",
+                      "fontSize": 14,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xmg7h",
+                      "name": "Spacer",
+                      "fill": "$ink",
+                      "fontFamily": "$font-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "FCCLs",
+                  "name": "Order A1029-0431",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "padding": [
+                    26,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fmlBH",
+                      "name": "Order No",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "A1029-0431",
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "GjSRR",
+                      "name": "Date",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": 260,
+                      "content": "2026/10/28",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "XR9NG",
+                      "name": "Amount",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 200,
+                      "content": "NT$ 2,640",
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "l2UOH",
+                      "name": "Status Cell",
+                      "width": 200,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Fw0Cb",
+                          "name": "Status 待付款",
+                          "fill": "#FBE7B0",
+                          "cornerRadius": 3,
+                          "padding": [
+                            5,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "rDGm0",
+                              "name": "Status Label",
+                              "fill": "#6B4A00",
+                              "content": "待付款",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "IUpPv",
+                      "name": "Detail Link",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "justifyContent": "end",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "DWjGB",
+                          "name": "查看明細",
+                          "fill": "$hydrangea",
+                          "content": "查看明細",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "L2jJY4",
+                          "name": "Arrow",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "chevron-right",
+                          "library": "lucide",
+                          "fill": "$hydrangea"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Tx1WM",
+                  "name": "Order A1029-0388",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "padding": [
+                    26,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "mLVAG",
+                      "name": "Order No",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "A1029-0388",
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "DTGka",
+                      "name": "Date",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": 260,
+                      "content": "2026/10/21",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "wiGMP",
+                      "name": "Amount",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 200,
+                      "content": "NT$ 980",
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Ukyzd",
+                      "name": "Status Cell",
+                      "width": 200,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "ehgM4",
+                          "name": "Status 已付款",
+                          "fill": "#DCE9DF",
+                          "cornerRadius": 3,
+                          "padding": [
+                            5,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "H9eOb",
+                              "name": "Status Label",
+                              "fill": "$fern",
+                              "content": "已付款",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "EPFDp",
+                      "name": "Detail Link",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "justifyContent": "end",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "VAMNR",
+                          "name": "查看明細",
+                          "fill": "$hydrangea",
+                          "content": "查看明細",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "HZKLs",
+                          "name": "Arrow",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "chevron-right",
+                          "library": "lucide",
+                          "fill": "$hydrangea"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "VP1YM",
+                  "name": "Order A1029-0302",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "padding": [
+                    26,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "q960O",
+                      "name": "Order No",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "A1029-0302",
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Xyvi8",
+                      "name": "Date",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": 260,
+                      "content": "2026/10/09",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "HIJ4C",
+                      "name": "Amount",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 200,
+                      "content": "NT$ 1,450",
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "gP4Oo",
+                      "name": "Status Cell",
+                      "width": 200,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "o5NmMT",
+                          "name": "Status 已付款",
+                          "fill": "#DCE9DF",
+                          "cornerRadius": 3,
+                          "padding": [
+                            5,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "PtrMh",
+                              "name": "Status Label",
+                              "fill": "$fern",
+                              "content": "已付款",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "n5a5gt",
+                      "name": "Detail Link",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "justifyContent": "end",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "U1CmX",
+                          "name": "查看明細",
+                          "fill": "$hydrangea",
+                          "content": "查看明細",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "KB1w2",
+                          "name": "Arrow",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "chevron-right",
+                          "library": "lucide",
+                          "fill": "$hydrangea"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L1SQN",
+                  "name": "Order A1029-0215",
+                  "width": "fill_container",
+                  "stroke": "$line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "padding": [
+                    26,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Balcz",
+                      "name": "Order No",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 360,
+                      "content": "A1029-0215",
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Oe61a",
+                      "name": "Date",
+                      "fill": "$ink-soft",
+                      "textGrowth": "fixed-width",
+                      "width": 260,
+                      "content": "2026/09/30",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "k9IXv",
+                      "name": "Amount",
+                      "fill": "$ink",
+                      "textGrowth": "fixed-width",
+                      "width": 200,
+                      "content": "NT$ 680",
+                      "fontFamily": "$font-display",
+                      "fontSize": 20,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "fEgTZ",
+                      "name": "Status Cell",
+                      "width": 200,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Qi8pI",
+                          "name": "Status 付款失敗",
+                          "fill": "#F6D9DE",
+                          "cornerRadius": 3,
+                          "padding": [
+                            5,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "PbBzK",
+                              "name": "Status Label",
+                              "fill": "$berry",
+                              "content": "付款失敗",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "oP9Je",
+                      "name": "Detail Link",
+                      "width": "fill_container",
+                      "gap": 6,
+                      "justifyContent": "end",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "r45ij",
+                          "name": "查看明細",
+                          "fill": "$hydrangea",
+                          "content": "查看明細",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "icon",
+                          "id": "PJguR",
+                          "name": "Arrow",
+                          "width": 16,
+                          "height": 16,
+                          "icon": "chevron-right",
+                          "library": "lucide",
+                          "fill": "$hydrangea"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "mros7",
+          "type": "ref",
+          "ref": "j9MXoL",
+          "name": "Footer Instance",
+          "width": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "c5l2H",
+      "x": 9600,
+      "y": 0,
+      "name": "訂單詳情",
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "b6zlQ",
+          "type": "ref",
+          "ref": "AYAdi",
+          "name": "Header Instance",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "yJlz6",
+          "name": "Detail Body",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            56,
+            80,
+            120,
+            80
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "i9gQd",
+              "name": "Detail Head",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "end",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "fL0RS",
+                  "name": "Title Group",
+                  "layout": "vertical",
+                  "gap": 14,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Y4s3RW",
+                      "name": "Page Title",
+                      "fill": "$ink",
+                      "content": "訂單詳情",
+                      "fontFamily": "$font-display",
+                      "fontSize": 52,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "I9XEFz",
+                      "name": "Order Meta",
+                      "gap": 16,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hySjb",
+                          "name": "A1029-0431",
+                          "fill": "$ink",
+                          "content": "A1029-0431",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "CzRNY",
+                          "name": "2026/10/28 下單",
+                          "fill": "$ink-soft",
+                          "content": "2026/10/28 下單",
+                          "fontFamily": "$font-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "CZGQP",
+                          "name": "Status 待付款",
+                          "fill": "#FBE7B0",
+                          "cornerRadius": 3,
+                          "padding": [
+                            5,
+                            14
+                          ],
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "RBmns",
+                              "name": "Status Label",
+                              "fill": "#6B4A00",
+                              "content": "待付款",
+                              "fontFamily": "$font-body",
+                              "fontSize": 13,
+                              "fontWeight": "700"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "syBqc",
+                  "name": "Pay Button",
+                  "fill": "$ink",
+                  "cornerRadius": 4,
+                  "gap": 10,
+                  "padding": [
+                    16,
+                    32
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "icon",
+                      "id": "Yo8JN",
+                      "name": "Card",
+                      "width": 20,
+                      "height": 20,
+                      "icon": "credit-card",
+                      "library": "lucide",
+                      "fill": "$paper"
+                    },
+                    {
+                      "type": "text",
+                      "id": "V23j4a",
+                      "name": "Pay Label",
+                      "fill": "$paper",
+                      "content": "前往付款",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "QpmXY",
+              "name": "Detail Columns",
+              "width": "fill_container",
+              "gap": 96,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "epOlM",
+                  "name": "Items",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "v35Kb0",
+                      "name": "Items Title",
+                      "fill": "$ink",
+                      "content": "商品明細",
+                      "fontFamily": "$font-display",
+                      "fontSize": 26,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HHzyl",
+                      "name": "Items Head",
+                      "width": "fill_container",
+                      "stroke": "$ink",
+                      "strokeWidth": {
+                        "bottom": 1.5
+                      },
+                      "padding": [
+                        24,
+                        0,
+                        12,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "O0gcKZ",
+                          "name": "Head 商品名稱",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "商品名稱",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "lBctN",
+                          "name": "Head 單價",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": 120,
+                          "content": "單價",
+                          "textAlign": "right",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "t1Bcl",
+                          "name": "Head 數量",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "數量",
+                          "textAlign": "right",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "yg0R3",
+                          "name": "Head 小計",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": 140,
+                          "content": "小計",
+                          "textAlign": "right",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ujLll",
+                      "name": "Item 粉霧牡丹花束",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        22,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "JkARZ",
+                          "name": "Cell",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "粉霧牡丹花束",
+                          "fontFamily": "$font-display",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "oXyCw",
+                          "name": "Cell",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": 120,
+                          "content": "NT$ 1,280",
+                          "textAlign": "right",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "XO0EC",
+                          "name": "Cell",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "1",
+                          "textAlign": "right",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "d3b64",
+                          "name": "Cell",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 140,
+                          "content": "NT$ 1,280",
+                          "textAlign": "right",
+                          "fontFamily": "$font-display",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HiuN9",
+                      "name": "Item 荷蘭鬱金香",
+                      "width": "fill_container",
+                      "stroke": "$line",
+                      "strokeWidth": {
+                        "bottom": 1
+                      },
+                      "padding": [
+                        22,
+                        0
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "j0yx4",
+                          "name": "Cell",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "荷蘭鬱金香",
+                          "fontFamily": "$font-display",
+                          "fontSize": 20,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Xf5cK",
+                          "name": "Cell",
+                          "fill": "$ink-soft",
+                          "textGrowth": "fixed-width",
+                          "width": 120,
+                          "content": "NT$ 680",
+                          "textAlign": "right",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "auxg3",
+                          "name": "Cell",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 80,
+                          "content": "2",
+                          "textAlign": "right",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "w6F7yu",
+                          "name": "Cell",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": 140,
+                          "content": "NT$ 1,360",
+                          "textAlign": "right",
+                          "fontFamily": "$font-display",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "y8Cva",
+                      "name": "Total Row",
+                      "width": "fill_container",
+                      "gap": 24,
+                      "padding": [
+                        24,
+                        0,
+                        0,
+                        0
+                      ],
+                      "justifyContent": "end",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "GU8EZ",
+                          "name": "總計",
+                          "fill": "$ink",
+                          "content": "總計",
+                          "fontFamily": "$font-body",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "text",
+                          "id": "f7JB2U",
+                          "name": "Total",
+                          "fill": "$ink",
+                          "content": "NT$ 2,640",
+                          "fontFamily": "$font-display",
+                          "fontSize": 34,
+                          "fontWeight": "900"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "NiH1u",
+                  "name": "Recipient",
+                  "width": 420,
+                  "stroke": "$saffron",
+                  "strokeWidth": {
+                    "left": 4
+                  },
+                  "layout": "vertical",
+                  "gap": 20,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    28
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "q8WLR",
+                      "name": "收件資訊",
+                      "fill": "$ink",
+                      "content": "收件資訊",
+                      "fontFamily": "$font-display",
+                      "fontSize": 26,
+                      "fontWeight": "900"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "nd8rf",
+                      "name": "收件人",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hugkZ",
+                          "name": "收件人",
+                          "fill": "$ink-soft",
+                          "content": "收件人",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gWe3X",
+                          "name": "Value",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "林小花",
+                          "fontFamily": "$font-body",
+                          "fontSize": 17,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "q1xyi",
+                      "name": "Email",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "F1ZXl",
+                          "name": "Email",
+                          "fill": "$ink-soft",
+                          "content": "Email",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gdIEY",
+                          "name": "Value",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "flower@example.com",
+                          "fontFamily": "$font-body",
+                          "fontSize": 17,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "TKqbC",
+                      "name": "地址",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "WBcJI",
+                          "name": "地址",
+                          "fill": "$ink-soft",
+                          "content": "地址",
+                          "fontFamily": "$font-body",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "XtMqc",
+                          "name": "Value",
+                          "fill": "$ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "台北市大安區花園路 88 號 3 樓",
+                          "fontFamily": "$font-body",
+                          "fontSize": 17,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0WO2s",
+          "type": "ref",
+          "ref": "j9MXoL",
+          "name": "Footer Instance",
+          "width": "fill_container"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "judoA",
+      "x": 11200,
+      "y": 0,
+      "name": "404",
+      "width": 1440,
+      "fill": "$paper",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "AVSjU",
+          "type": "ref",
+          "ref": "AYAdi",
+          "name": "Header Instance",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "ahw6t",
+          "name": "Not Found Body",
+          "width": "fill_container",
+          "height": 640,
+          "gap": 72,
+          "padding": [
+            0,
+            80
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "cT7n7",
+              "name": "Code",
+              "fill": "$hydrangea",
+              "content": "404",
+              "fontFamily": "$font-display",
+              "fontSize": 280,
+              "fontWeight": "900"
+            },
+            {
+              "type": "frame",
+              "id": "bZKMj",
+              "name": "Not Found Copy",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "M5krE",
+                  "name": "Title",
+                  "fill": "$ink",
+                  "content": "找不到頁面",
+                  "fontFamily": "$font-display",
+                  "fontSize": 48,
+                  "fontWeight": "900"
+                },
+                {
+                  "type": "text",
+                  "id": "l3E42p",
+                  "name": "Body",
+                  "fill": "$ink-soft",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "你造訪的頁面不存在，可能網址有誤，或商品已下架。",
+                  "lineHeight": 1.8,
+                  "fontFamily": "$font-body",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "p09O0",
+                  "name": "Home Button",
+                  "fill": "$ink",
+                  "cornerRadius": 4,
+                  "padding": [
+                    16,
+                    32
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "GvPap",
+                      "name": "Home Label",
+                      "fill": "$paper",
+                      "content": "回到首頁",
+                      "fontFamily": "$font-body",
+                      "fontSize": 16,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "jBLDT",
+          "type": "ref",
+          "ref": "j9MXoL",
+          "name": "Footer Instance",
+          "width": "fill_container"
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "paper": {
+      "type": "color",
+      "value": "#F5F3F8"
+    },
+    "surface": {
+      "type": "color",
+      "value": "#FFFFFF"
+    },
+    "ink": {
+      "type": "color",
+      "value": "#2A1B38"
+    },
+    "ink-soft": {
+      "type": "color",
+      "value": "#5E5169"
+    },
+    "line": {
+      "type": "color",
+      "value": "#DDD7E5"
+    },
+    "saffron": {
+      "type": "color",
+      "value": "#F4B41A"
+    },
+    "hydrangea": {
+      "type": "color",
+      "value": "#7B6CC4"
+    },
+    "fern": {
+      "type": "color",
+      "value": "#3E6B4B"
+    },
+    "berry": {
+      "type": "color",
+      "value": "#B3263E"
+    },
+    "font-display": {
+      "type": "string",
+      "value": "Noto Serif TC"
+    },
+    "font-body": {
+      "type": "string",
+      "value": "Noto Sans TC"
+    }
+  },
+  "fileToken": "eb5ca287-282a-4025-9269-dcd9b2b61164"
+}

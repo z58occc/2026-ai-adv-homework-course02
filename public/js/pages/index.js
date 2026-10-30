@@ -3,21 +3,16 @@ const { createApp, ref, onMounted } = Vue;
 createApp({
   setup() {
     const products = ref([]);
-    const pagination = ref({ total: 0, page: 1, limit: 9, totalPages: 0 });
+    const pagination = ref({ total: 0, page: 1, limit: 6, totalPages: 0 });
     const loading = ref(true);
 
-    const featuredImages = [
-      'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400',
-      'https://images.unsplash.com/photo-1487530811176-3780de880c2d?w=400',
-      'https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=400',
-      'https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=400',
-    ];
+    const fallbackImage = 'https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=600';
 
     async function loadProducts(page) {
       page = page || 1;
       loading.value = true;
       try {
-        const res = await apiFetch('/api/products?page=' + page + '&limit=9');
+        const res = await apiFetch('/api/products?page=' + page + '&limit=6');
         products.value = res.data.products.map(function (p) {
           p._adding = false;
           return p;
@@ -62,7 +57,7 @@ createApp({
     });
 
     return {
-      products, pagination, loading, featuredImages,
+      products, pagination, loading, fallbackImage,
       loadProducts, goToProduct, addToCart
     };
   }

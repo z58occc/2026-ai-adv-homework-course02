@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+  /* 後台沿用的舊色票 */
   --color-rose-primary: #C4727F;
   --color-rose-dark: #A85B67;
   --color-rose-light: #E8A5AE;
@@ -12,10 +13,130 @@
   --color-text-primary: #2C2A28;
   --color-text-secondary: #6B6560;
   --color-text-muted: #9A948E;
+
+  /* 前台設計稿色票（Pencil variables） */
+  --color-paper: #F5F3F8;
+  --color-ink: #2A1B38;
+  --color-ink-hover: #432D57;
+  --color-ink-soft: #5E5169;
+  --color-line: #DDD7E5;
+  --color-saffron: #F4B41A;
+  --color-hydrangea: #7B6CC4;
+  --color-fern: #3E6B4B;
+  --color-berry: #B3263E;
+
+  /* 設計稿中的輔助色 */
+  --color-lilac: #E6E0F0;
+  --color-mist: #BDB2CC;
+  --color-placeholder: #9A8FA8;
+  --color-tab-off: #B9AFC6;
+  --color-image-fallback: #CFC7DB;
+  --color-fern-bg: #DCE9DF;
+  --color-saffron-bg: #FBE7B0;
+  --color-saffron-ink: #6B4A00;
+  --color-berry-bg: #F6D9DE;
+
+  --font-display: 'Noto Serif TC', serif;
 }
 
 body {
   font-family: 'Noto Sans TC', sans-serif;
-  background-color: var(--color-cream);
-  color: var(--color-text-primary);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* 頁面內容寬度：1440 稿面、左右 80px，隨螢幕縮減 */
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1440px;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+
+  @media (width >= 80rem) {
+    padding-inline: 5rem;
+  }
+}
+
+/* 價格吊牌（Price Tag 元件） */
+@utility price-tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--color-saffron);
+  color: var(--color-ink);
+  border-radius: 3px;
+  padding: 6px 14px 6px 28px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 17px;
+  line-height: 24px;
+  white-space: nowrap;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 11px;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: var(--color-paper);
+  }
+}
+
+@utility price-tag-lg {
+  padding: 10px 22px 10px 38px;
+  font-size: 28px;
+  line-height: 40px;
+}
+
+/* 主按鈕：深紫實心 */
+@utility btn-primary {
+  @apply inline-flex items-center justify-center gap-2.5 rounded bg-ink font-medium text-paper transition-colors hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+/* 次按鈕：深紫描邊 */
+@utility btn-outline {
+  @apply inline-flex items-center justify-center gap-1.5 rounded border-[1.5px] border-ink bg-transparent font-medium text-ink transition-colors hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-ink;
+}
+
+/* 底線式輸入框 */
+@utility field-input {
+  @apply block w-full rounded-none border-0 border-b-[1.5px] border-ink bg-transparent pt-2.5 pb-3 text-[17px] text-ink placeholder:text-placeholder focus:border-hydrangea focus:outline-none;
+
+  &.is-error {
+    @apply border-berry;
+  }
+}
+
+/* 數量加減器 */
+@utility stepper {
+  @apply inline-flex items-center rounded border-[1.5px] border-ink font-medium text-ink;
+}
+
+@utility stepper-btn {
+  @apply flex items-center justify-center transition-colors hover:bg-ink hover:text-paper disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-ink;
+}
+
+/* 帶小孔的黃色吊牌（首頁、登入頁的裝飾標籤） */
+@utility hang-tag {
+  position: relative;
+  background-color: var(--color-saffron);
+  color: var(--color-ink);
+  border-radius: 3px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    width: 10px;
+    height: 10px;
+    border-radius: 9999px;
+    background-color: var(--color-paper);
+  }
 }
