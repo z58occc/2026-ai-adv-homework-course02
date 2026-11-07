@@ -1,4 +1,4 @@
-const { createApp, ref, computed, onMounted } = Vue;
+const { createApp, ref, computed, watch, onMounted } = Vue;
 
 createApp({
   setup() {
@@ -13,6 +13,29 @@ createApp({
         return sum + item.product.price * item.quantity;
       }, 0);
     });
+
+    // 購物車頁以預設的宅配試算運費；配送方式等選項於結帳頁再選
+    const quote = ref(null);
+    let quoteSeq = 0;
+
+    async function loadQuote() {
+      const seq = ++quoteSeq;
+      if (items.value.length === 0) {
+        quote.value = null;
+        return;
+      }
+      try {
+        const res = await apiFetch('/api/shipping/quote', {
+          method: 'POST',
+          body: JSON.stringify({ subtotal: total.value })
+        });
+        if (seq === quoteSeq) quote.value = res.data;
+      } catch (e) {
+        if (seq === quoteSeq) quote.value = null;
+      }
+    }
+
+    watch(total, loadQuote);
 
     async function loadCart() {
       loading.value = true;
@@ -69,7 +92,7 @@ createApp({
     });
 
     return {
-      items, loading, total, confirmVisible, fallbackImage,
+      items, loading, total, quote, confirmVisible, fallbackImage,
       updateQuantity, confirmDelete, handleDelete, goCheckout
     };
   }

@@ -28,12 +28,14 @@ export default defineConfig({
     fileParallelism: false, // 停用檔案平行執行（循序執行）
     sequence: {
       files: [              // 指定執行順序
+        'tests/shipping.test.js',
         'tests/auth.test.js',
         'tests/products.test.js',
         'tests/cart.test.js',
         'tests/orders.test.js',
         'tests/adminProducts.test.js',
         'tests/adminOrders.test.js',
+        'tests/shippingApi.test.js',
       ],
     },
     hookTimeout: 10000,     // beforeAll/afterAll 等 hook 的逾時時間（10 秒）
@@ -46,30 +48,68 @@ export default defineConfig({
 | 檔案 | 測試範圍 | 依賴 |
 |------|----------|------|
 | `tests/setup.js` | 輔助函式（非測試檔案） | — |
+| `tests/shipping.test.js` | Shipping 模組單元測試：運費規則、免運門檻邊界、附加費疊加、偏遠地區判定、參數驗證 | 無（純函式，不啟動 app、不碰 DB） |
 | `tests/auth.test.js` | 註冊、登入、重複 email、個人資料 | 無（首先執行，建立種子資料） |
 | `tests/products.test.js` | 商品列表、分頁、詳情、404 | 依賴種子商品存在 |
 | `tests/cart.test.js` | 加入購物車、查看、更新數量、刪除、訪客 vs 登入 | 依賴商品存在 + 使用者認證 |
-| `tests/orders.test.js` | 建立訂單、空購物車、認證要求、訂單列表、詳情、付款 | 依賴購物車有品項 |
+| `tests/orders.test.js` | 建立訂單（含總額 = 小計 + 運費）、空購物車、認證要求、訂單列表、詳情 | 自行註冊使用者並加入購物車 |
 | `tests/adminProducts.test.js` | 後台商品列表、新增、更新、刪除、權限檢查 | 依賴 admin 帳號 |
 | `tests/adminOrders.test.js` | 後台訂單列表、詳情、狀態篩選 | 依賴訂單存在 + admin 帳號 |
+| `tests/shippingApi.test.js` | 運費試算 API、建立訂單的運費／總額、偏遠地區由伺服器判定、綠界 TotalAmount 含運費 | admin 帳號（自建測試商品，afterAll 清除） |
 
 ## 執行順序與依賴關係
 
 ```
-auth.test.js          ← 第 1 順位：建立使用者，驗證認證機制
+shipping.test.js      ← 第 1 順位：純函式單元測試，無任何依賴
     ↓
-products.test.js      ← 第 2 順位：驗證種子商品（依賴 DB 初始化）
+auth.test.js          ← 第 2 順位：建立使用者，驗證認證機制
     ↓
-cart.test.js          ← 第 3 順位：需要商品 + 認證 token
+products.test.js      ← 第 3 順位：驗證種子商品（依賴 DB 初始化）
     ↓
-orders.test.js        ← 第 4 順位：需要購物車有品項
+cart.test.js          ← 第 4 順位：需要商品 + 認證 token
     ↓
-adminProducts.test.js ← 第 5 順位：需要 admin token
+orders.test.js        ← 第 5 順位：需要購物車有品項
     ↓
-adminOrders.test.js   ← 第 6 順位：需要訂單存在 + admin token
+adminProducts.test.js ← 第 6 順位：需要 admin token
+    ↓
+adminOrders.test.js   ← 第 7 順位：需要訂單存在 + admin token
+    ↓
+shippingApi.test.js   ← 第 8 順位：自建測試商品與訂單，結束時清理
 ```
 
 **為何要循序執行**：測試間存在資料依賴（例如 cart 測試新增的品項會在 orders 測試中用來建立訂單）。`fileParallelism: false` 確保測試檔案依序執行，避免競態條件。
+
+## Shipping 模組測試
+
+### 單元測試（`tests/shipping.test.js`）
+
+直接 `require('../src/utils/shipping')` 測試純函式，不需要 supertest、不初始化資料庫，可單獨執行：
+
+```bash
+npx vitest run tests/shipping.test.js
+```
+
+| 情境 | 輸入 | 預期運費 / 總額 |
+|------|------|----------------|
+| 宅配基本運費 | 小計 1,000、宅配 | 120 / 1,120 |
+| 超商取貨費用 | 小計 1,000、超商 | 60 / 1,060 |
+| 商品小計 1,499 | 宅配 | 120 / 1,619（未達門檻） |
+| 商品小計 1,500 | 宅配 | 0 / 1,500（免運） |
+| 偏遠地區附加費 | 小計 1,000、宅配、偏遠 | 320 / 1,320 |
+| 當日急件附加費 | 小計 1,000、宅配、急件 | 370 / 1,370 |
+| 多項附加費同時成立 | 小計 1,000、宅配／超商、偏遠 + 急件 | 570 / 1,570；510 / 1,510 |
+| 滿額免運與附加費同時成立 | 小計 1,500、宅配、偏遠 + 急件 | 450 / 1,950 |
+| 超商滿額不免 | 小計 1,500、超商 | 60 / 1,560 |
+
+另涵蓋：預設配送方式、`subtotal` / 配送方式 / 布林旗標的參數驗證（拋出 `TypeError`）、`isRemoteAddress()` 的離島與誤判案例（如「台北市金門街」不應判定為偏遠）、`parseShippingOptions()` 預設值與錯誤訊息。
+
+### API 整合測試（`tests/shippingApi.test.js`）
+
+- `beforeAll` 以 admin 建立價格固定（500）、庫存充足的專用測試商品，讓訂單小計可預期且不受種子商品庫存影響
+- 每筆訂單前以 `setCart(quantity)` 清空並重設購物車
+- 驗證 `POST /api/orders` 回應與 `GET /api/orders/:id` 的 `subtotal_amount`、`shipping_fee`、`total_amount` 正確，且前端傳入的 `isRemoteArea` 會被忽略
+- 驗證 `GET /ecpay/payment/:orderId` 的 `TotalAmount` 為含運總額、`ItemName` 附加「運費 x1」
+- `afterAll` 將測試訂單標為 failed 後刪除測試商品，避免殘留在前台商品列表
 
 ## 輔助函式說明
 

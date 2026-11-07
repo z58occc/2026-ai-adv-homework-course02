@@ -153,8 +153,26 @@ router.get('/', (req, res) => {
  *                       type: string
  *                     recipient_address:
  *                       type: string
+ *                     subtotal_amount:
+ *                       type: integer
+ *                       nullable: true
+ *                       description: 商品小計
+ *                     shipping_method:
+ *                       type: string
+ *                       nullable: true
+ *                       enum: [home_delivery, cvs_pickup]
+ *                     shipping_fee:
+ *                       type: integer
+ *                       description: 運費合計
+ *                     is_remote_area:
+ *                       type: integer
+ *                       enum: [0, 1]
+ *                     is_urgent:
+ *                       type: integer
+ *                       enum: [0, 1]
  *                     total_amount:
  *                       type: integer
+ *                       description: 訂單總額（商品小計 + 運費）
  *                     status:
  *                       type: string
  *                     created_at:

@@ -136,7 +136,14 @@
                 </tr>
               </tbody>
             </table>
-            <div class="flex justify-end mt-3 pt-2 border-t border-gray-100">
+            <div class="flex flex-col items-end gap-1 mt-3 pt-2 border-t border-gray-100">
+              <template v-if="detailOrder.shipping_method">
+                <span class="text-text-secondary">商品小計 NT$ {{ detailOrder.subtotal_amount.toLocaleString() }}</span>
+                <span class="text-text-secondary">
+                  運費（{{ detailOrder.shipping_method === 'cvs_pickup' ? '超商取貨' : '宅配' }}<template v-if="detailOrder.is_remote_area">・偏遠地區</template><template v-if="detailOrder.is_urgent">・當日急件</template>）
+                  NT$ {{ detailOrder.shipping_fee.toLocaleString() }}
+                </span>
+              </template>
               <span class="font-bold text-rose-primary text-lg">總計 NT$ {{ detailOrder.total_amount.toLocaleString() }}</span>
             </div>
           </div>

@@ -37,7 +37,7 @@
       </div>
       <div class="flex items-center gap-3 text-[15px] font-medium">
         <%- include('../partials/icon', { name: 'badge-check', cls: 'size-[22px] text-saffron' }) %>
-        消費滿 NT$ 500 免運
+        宅配滿 NT$ <%= shippingRates.FREE_SHIPPING_THRESHOLD.toLocaleString('en-US') %> 免運
       </div>
     </div>
   </section>

@@ -62,8 +62,8 @@
         <div class="flex flex-col gap-2.5 border-l-4 border-saffron py-1 pl-5">
           <h3 class="font-display text-lg font-bold text-ink">購買須知</h3>
           <p class="text-sm text-ink-soft">花材依季節供應，實際花束可能略有差異</p>
-          <p class="text-sm text-ink-soft">台北市區中午前下單，當日配送</p>
-          <p class="text-sm text-ink-soft">消費滿 NT$ 500 免運費</p>
+          <p class="text-sm text-ink-soft">台北市區中午前下單，可選當日急件（+NT$ <%= shippingRates.URGENT_SURCHARGE %>）</p>
+          <p class="text-sm text-ink-soft">宅配滿 NT$ <%= shippingRates.FREE_SHIPPING_THRESHOLD.toLocaleString('en-US') %> 免運費</p>
         </div>
       </div>
     </section>

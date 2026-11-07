@@ -1,0 +1,1972 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "E-Commerce Demo API",
+    "version": "1.0.0",
+    "description": "花卉電商網站 REST API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "sessionId": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Session-Id"
+      }
+    }
+  },
+  "paths": {
+    "/api/admin/orders": {
+      "get": {
+        "summary": "後台訂單列表",
+        "tags": [
+          "Admin Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "pending",
+                "paid",
+                "failed"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "orders": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "order_no": {
+                                "type": "string"
+                              },
+                              "user_id": {
+                                "type": "string"
+                              },
+                              "recipient_name": {
+                                "type": "string"
+                              },
+                              "recipient_email": {
+                                "type": "string"
+                              },
+                              "total_amount": {
+                                "type": "integer"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer"
+                            },
+                            "page": {
+                              "type": "integer"
+                            },
+                            "limit": {
+                              "type": "integer"
+                            },
+                            "totalPages": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/orders/{id}": {
+      "get": {
+        "summary": "後台訂單詳情",
+        "tags": [
+          "Admin Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "order_no": {
+                          "type": "string"
+                        },
+                        "user_id": {
+                          "type": "string"
+                        },
+                        "recipient_name": {
+                          "type": "string"
+                        },
+                        "recipient_email": {
+                          "type": "string"
+                        },
+                        "recipient_address": {
+                          "type": "string"
+                        },
+                        "subtotal_amount": {
+                          "type": "integer",
+                          "nullable": true,
+                          "description": "商品小計"
+                        },
+                        "shipping_method": {
+                          "type": "string",
+                          "nullable": true,
+                          "enum": [
+                            "home_delivery",
+                            "cvs_pickup"
+                          ]
+                        },
+                        "shipping_fee": {
+                          "type": "integer",
+                          "description": "運費合計"
+                        },
+                        "is_remote_area": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ]
+                        },
+                        "is_urgent": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ]
+                        },
+                        "total_amount": {
+                          "type": "integer",
+                          "description": "訂單總額（商品小計 + 運費）"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "product_id": {
+                                "type": "string"
+                              },
+                              "product_name": {
+                                "type": "string"
+                              },
+                              "product_price": {
+                                "type": "integer"
+                              },
+                              "quantity": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "訂單不存在"
+          }
+        }
+      }
+    },
+    "/api/admin/products": {
+      "get": {
+        "summary": "後台商品列表",
+        "tags": [
+          "Admin Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "products": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "stock": {
+                                "type": "integer"
+                              },
+                              "image_url": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              },
+                              "updated_at": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer"
+                            },
+                            "page": {
+                              "type": "integer"
+                            },
+                            "limit": {
+                              "type": "integer"
+                            },
+                            "totalPages": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登入"
+          },
+          "403": {
+            "description": "權限不足"
+          }
+        }
+      },
+      "post": {
+        "summary": "新增商品",
+        "tags": [
+          "Admin Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "price",
+                  "stock"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "stock": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "image_url": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "商品新增成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "integer"
+                        },
+                        "stock": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "參數錯誤"
+          }
+        }
+      }
+    },
+    "/api/admin/products/{id}": {
+      "put": {
+        "summary": "編輯商品",
+        "tags": [
+          "Admin Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "stock": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "image_url": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "商品更新成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "integer"
+                        },
+                        "stock": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "商品不存在"
+          }
+        }
+      },
+      "delete": {
+        "summary": "刪除商品",
+        "tags": [
+          "Admin Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "商品刪除成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "商品不存在"
+          },
+          "409": {
+            "description": "商品存在未完成訂單，無法刪除"
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "summary": "註冊新帳號",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password",
+                  "name"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "minLength": 6
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "註冊成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "token": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "參數缺失或格式錯誤"
+          },
+          "409": {
+            "description": "Email 已被註冊"
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "登入",
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "登入成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "user": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "token": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "參數缺失"
+          },
+          "401": {
+            "description": "Email 或密碼錯誤"
+          }
+        }
+      }
+    },
+    "/api/auth/profile": {
+      "get": {
+        "summary": "取得個人資料",
+        "tags": [
+          "Auth"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "未登入或 token 無效"
+          }
+        }
+      }
+    },
+    "/api/cart": {
+      "get": {
+        "summary": "查看購物車",
+        "tags": [
+          "Cart"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "sessionId": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "product_id": {
+                                "type": "string"
+                              },
+                              "quantity": {
+                                "type": "integer"
+                              },
+                              "product": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "price": {
+                                    "type": "integer"
+                                  },
+                                  "stock": {
+                                    "type": "integer"
+                                  },
+                                  "image_url": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "加入商品到購物車",
+        "tags": [
+          "Cart"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "sessionId": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "productId",
+                  "quantity"
+                ],
+                "properties": {
+                  "productId": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "default": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "已加入購物車",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "product_id": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "參數缺失或庫存不足"
+          },
+          "404": {
+            "description": "商品不存在"
+          }
+        }
+      }
+    },
+    "/api/cart/{itemId}": {
+      "patch": {
+        "summary": "修改購物車商品數量",
+        "tags": [
+          "Cart"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "sessionId": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "quantity"
+                ],
+                "properties": {
+                  "quantity": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "數量已更新",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "product_id": {
+                          "type": "string"
+                        },
+                        "quantity": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "庫存不足"
+          },
+          "404": {
+            "description": "購物車項目不存在"
+          }
+        }
+      },
+      "delete": {
+        "summary": "移除購物車項目",
+        "tags": [
+          "Cart"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "sessionId": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "itemId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "已從購物車移除",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "nullable": true
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "購物車項目不存在"
+          }
+        }
+      }
+    },
+    "/api/orders": {
+      "post": {
+        "summary": "從購物車建立訂單",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "recipientName",
+                  "recipientEmail",
+                  "recipientAddress"
+                ],
+                "properties": {
+                  "recipientName": {
+                    "type": "string"
+                  },
+                  "recipientEmail": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "recipientAddress": {
+                    "type": "string",
+                    "description": "收件地址（超商取貨時為取貨門市地址）；伺服器依此判定是否為偏遠地區（離島）"
+                  },
+                  "shippingMethod": {
+                    "type": "string",
+                    "enum": [
+                      "home_delivery",
+                      "cvs_pickup"
+                    ],
+                    "default": "home_delivery",
+                    "description": "配送方式。home_delivery 宅配（基本運費 120，商品小計滿 1500 免基本運費）；cvs_pickup 超商取貨（60，滿額不免）"
+                  },
+                  "isUrgent": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "是否當日急件（加收 250）"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "訂單建立成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "order_no": {
+                          "type": "string"
+                        },
+                        "subtotal_amount": {
+                          "type": "integer",
+                          "description": "商品小計"
+                        },
+                        "shipping_method": {
+                          "type": "string",
+                          "enum": [
+                            "home_delivery",
+                            "cvs_pickup"
+                          ]
+                        },
+                        "shipping_fee": {
+                          "type": "integer",
+                          "description": "運費合計（配送方式費用 + 偏遠地區附加費 + 當日急件附加費）"
+                        },
+                        "is_remote_area": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "description": "是否偏遠地區（由收件地址判定）"
+                        },
+                        "is_urgent": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ],
+                          "description": "是否當日急件"
+                        },
+                        "total_amount": {
+                          "type": "integer",
+                          "description": "訂單總額（商品小計 + 運費）"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "product_name": {
+                                "type": "string"
+                              },
+                              "product_price": {
+                                "type": "integer"
+                              },
+                              "quantity": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        },
+                        "created_at": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "購物車為空、庫存不足、收件資訊缺失，或 shippingMethod / isUrgent 不合法"
+          }
+        }
+      },
+      "get": {
+        "summary": "自己的訂單列表",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "orders": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "order_no": {
+                                "type": "string"
+                              },
+                              "total_amount": {
+                                "type": "integer"
+                              },
+                              "status": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/{id}": {
+      "get": {
+        "summary": "訂單詳情",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "order_no": {
+                          "type": "string"
+                        },
+                        "recipient_name": {
+                          "type": "string"
+                        },
+                        "recipient_email": {
+                          "type": "string"
+                        },
+                        "recipient_address": {
+                          "type": "string"
+                        },
+                        "subtotal_amount": {
+                          "type": "integer",
+                          "nullable": true,
+                          "description": "商品小計"
+                        },
+                        "shipping_method": {
+                          "type": "string",
+                          "nullable": true,
+                          "enum": [
+                            "home_delivery",
+                            "cvs_pickup"
+                          ],
+                          "description": "配送方式（運費功能上線前的舊訂單為 null）"
+                        },
+                        "shipping_fee": {
+                          "type": "integer",
+                          "description": "運費合計"
+                        },
+                        "is_remote_area": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ]
+                        },
+                        "is_urgent": {
+                          "type": "integer",
+                          "enum": [
+                            0,
+                            1
+                          ]
+                        },
+                        "total_amount": {
+                          "type": "integer",
+                          "description": "訂單總額（商品小計 + 運費）"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "product_id": {
+                                "type": "string"
+                              },
+                              "product_name": {
+                                "type": "string"
+                              },
+                              "product_price": {
+                                "type": "integer"
+                              },
+                              "quantity": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "訂單不存在"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/pay": {
+      "patch": {
+        "summary": "模擬付款（更新訂單付款狀態）",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "action"
+                ],
+                "properties": {
+                  "action": {
+                    "type": "string",
+                    "enum": [
+                      "success",
+                      "fail"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "付款狀態更新成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "order_no": {
+                          "type": "string"
+                        },
+                        "total_amount": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "items": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "product_name": {
+                                "type": "string"
+                              },
+                              "product_price": {
+                                "type": "integer"
+                              },
+                              "quantity": {
+                                "type": "integer"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "action 無效或訂單狀態不是 pending"
+          },
+          "404": {
+            "description": "訂單不存在"
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/check-payment": {
+      "post": {
+        "summary": "透過綠界 QueryTradeInfo API 查詢付款狀態",
+        "tags": [
+          "Orders"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "查詢成功"
+          },
+          "400": {
+            "description": "訂單狀態不是 pending"
+          },
+          "404": {
+            "description": "訂單不存在"
+          }
+        }
+      }
+    },
+    "/api/products": {
+      "get": {
+        "summary": "取得商品列表",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "products": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "name": {
+                                "type": "string"
+                              },
+                              "description": {
+                                "type": "string"
+                              },
+                              "price": {
+                                "type": "integer"
+                              },
+                              "stock": {
+                                "type": "integer"
+                              },
+                              "image_url": {
+                                "type": "string"
+                              },
+                              "created_at": {
+                                "type": "string"
+                              },
+                              "updated_at": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "pagination": {
+                          "type": "object",
+                          "properties": {
+                            "total": {
+                              "type": "integer"
+                            },
+                            "page": {
+                              "type": "integer"
+                            },
+                            "limit": {
+                              "type": "integer"
+                            },
+                            "totalPages": {
+                              "type": "integer"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "summary": "取得商品詳情",
+        "tags": [
+          "Products"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "integer"
+                        },
+                        "stock": {
+                          "type": "integer"
+                        },
+                        "image_url": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "updated_at": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "商品不存在"
+          }
+        }
+      }
+    },
+    "/api/shipping/quote": {
+      "post": {
+        "summary": "試算運費（結帳頁即時顯示運費明細用）",
+        "description": "依商品小計、配送方式、收件地址與是否當日急件試算運費，不建立任何資料。\n實際下單時 POST /api/orders 會以購物車內容在伺服器端重新計算，不採用此試算結果。\n\n規則：宅配基本運費 120（商品小計滿 1500 免基本運費）；超商取貨 60（不是基本運費，滿額不免）；\n偏遠地區 +200（依地址判定離島）；當日急件 +250。附加費可疊加，不受滿額免運影響。\n",
+        "tags": [
+          "Shipping"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "subtotal"
+                ],
+                "properties": {
+                  "subtotal": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "商品小計"
+                  },
+                  "shippingMethod": {
+                    "type": "string",
+                    "enum": [
+                      "home_delivery",
+                      "cvs_pickup"
+                    ],
+                    "default": "home_delivery"
+                  },
+                  "isUrgent": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "recipientAddress": {
+                    "type": "string",
+                    "description": "收件地址，用於判定是否為偏遠地區；未提供則視為非偏遠地區"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "試算成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "shipping_method": {
+                          "type": "string",
+                          "enum": [
+                            "home_delivery",
+                            "cvs_pickup"
+                          ]
+                        },
+                        "subtotal": {
+                          "type": "integer"
+                        },
+                        "delivery_fee": {
+                          "type": "integer",
+                          "description": "配送方式費用（宅配 120 或滿額 0；超商取貨 60）"
+                        },
+                        "remote_area_fee": {
+                          "type": "integer",
+                          "description": "偏遠地區附加費（0 或 200）"
+                        },
+                        "urgent_fee": {
+                          "type": "integer",
+                          "description": "當日急件附加費（0 或 250）"
+                        },
+                        "shipping_fee": {
+                          "type": "integer",
+                          "description": "運費合計"
+                        },
+                        "is_free_shipping": {
+                          "type": "boolean",
+                          "description": "是否適用滿額免宅配基本運費"
+                        },
+                        "is_remote_area": {
+                          "type": "boolean"
+                        },
+                        "is_urgent": {
+                          "type": "boolean"
+                        },
+                        "total_amount": {
+                          "type": "integer",
+                          "description": "商品小計 + 運費"
+                        },
+                        "free_shipping_threshold": {
+                          "type": "integer",
+                          "description": "宅配免運門檻"
+                        }
+                      }
+                    },
+                    "error": {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "data": {
+                    "shipping_method": "home_delivery",
+                    "subtotal": 1500,
+                    "delivery_fee": 0,
+                    "remote_area_fee": 200,
+                    "urgent_fee": 250,
+                    "shipping_fee": 450,
+                    "is_free_shipping": true,
+                    "is_remote_area": true,
+                    "is_urgent": true,
+                    "total_amount": 1950,
+                    "free_shipping_threshold": 1500
+                  },
+                  "error": null,
+                  "message": "試算成功"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "subtotal 不是非負整數，或 shippingMethod / isUrgent 不合法"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

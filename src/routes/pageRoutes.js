@@ -1,10 +1,14 @@
 const express = require('express');
 const db = require('../database');
 const { buildAioFormHtml } = require('../utils/ecpay');
+const { SHIPPING_RATES } = require('../utils/shipping');
 const router = express.Router();
 
 // Helper to render with front layout
+// shippingRates is exposed to every front page so free-shipping copy and fee labels
+// always come from the Shipping module instead of being hardcoded in templates.
 function renderFront(res, page, locals = {}) {
+  locals = { shippingRates: SHIPPING_RATES, ...locals };
   res.render('pages/' + page, { layout: 'front', ...locals }, function (err, body) {
     if (err) return res.status(500).send(err.message);
     res.render('layouts/front', { body, ...locals });
@@ -67,6 +71,10 @@ router.get('/ecpay/payment/:orderId', function (req, res) {
     return res.redirect('/orders/' + order.id);
   }
   const items = db.prepare('SELECT product_name, product_price, quantity FROM order_items WHERE order_id = ?').all(order.id);
+  // total_amount already includes shipping; list it so the ECPay page explains the amount
+  if (order.shipping_fee > 0) {
+    items.push({ product_name: '運費', product_price: order.shipping_fee, quantity: 1 });
+  }
   const html = buildAioFormHtml(order, items);
   res.type('text/html').send(html);
 });

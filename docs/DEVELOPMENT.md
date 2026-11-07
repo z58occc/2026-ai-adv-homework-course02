@@ -6,6 +6,7 @@
 |------|------|------|
 | 檔案名稱（路由） | camelCase | `authRoutes.js`, `adminProductRoutes.js` |
 | 檔案名稱（middleware） | camelCase | `authMiddleware.js`, `errorHandler.js` |
+| 檔案名稱（工具模組） | camelCase | `ecpay.js`, `shipping.js` |
 | 檔案名稱（測試） | camelCase + `.test.js` | `auth.test.js`, `adminOrders.test.js` |
 | 檔案名稱（前端 JS） | kebab-case | `header-init.js`, `admin-products.js` |
 | 檔案名稱（EJS 模板） | kebab-case | `product-detail.ejs`, `order-detail.ejs` |
@@ -96,6 +97,18 @@ router.get('/profile', authMiddleware, (req, res) => { ... });
 
 6. **撰寫測試**：在 `tests/` 下新增對應測試檔案
 7. **更新 vitest.config.js**：在 `sequence.files` 中加入新測試檔案（注意順序依賴）
+
+## 業務規則模組（src/utils/）
+
+計價、金流等業務規則封裝在 `src/utils/` 的獨立模組，路由只負責驗證輸入、呼叫模組、寫入 DB、回應。以 `src/utils/shipping.js` 為例：
+
+- **純函式、無外部依賴**：不 `require` database、不讀 `req`/`res`，輸入參數、回傳結果，因此可直接單元測試（見 `tests/shipping.test.js`）
+- **常數集中**：費率與門檻放在 `SHIPPING_RATES`，前台頁面文案透過 `pageRoutes.js` 的 `renderFront()` 注入 `shippingRates` 使用，不在模板寫死數字
+- **前端不自行計價**：結帳／購物車頁的運費一律呼叫 `POST /api/shipping/quote` 取得；下單時伺服器再以購物車內容重算
+- **影響價格的條件由伺服器判定**：偏遠地區由 `isRemoteAddress(recipientAddress)` 判定，不接受前端傳入
+- **驗證與計算分離**：`parseShippingOptions()` 回傳 `{ value }` / `{ error }` 供路由轉成 400；`calculateShipping()` 遇不合法參數拋 `TypeError`（屬程式錯誤）
+
+調整運費規則時：修改 `src/utils/shipping.js` → 更新 `tests/shipping.test.js` → 更新 `docs/FEATURES.md` 的「配送運費」章節。
 
 ## 新增 Middleware 步驟
 
@@ -207,7 +220,7 @@ CREATE TABLE IF NOT EXISTS your_table (
 
 ### 標記規則
 
-- `tags`：功能分類，使用 `[Auth]`、`[Products]`、`[Cart]`、`[Orders]`、`[Admin Products]`、`[Admin Orders]`
+- `tags`：功能分類，使用 `[Auth]`、`[Products]`、`[Cart]`、`[Orders]`、`[Shipping]`、`[Admin Products]`、`[Admin Orders]`
 - `security`：需認證的端點加上 `- bearerAuth: []`，購物車端點同時列出 `- sessionId: []`
 - `responses`：每個可能的 HTTP 狀態碼都應列出（200/201/400/401/403/404/409）
 - 所有回應 schema 必須包含 `data`、`error`、`message` 三個頂層欄位

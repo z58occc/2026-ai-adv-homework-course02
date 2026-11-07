@@ -2,13 +2,13 @@
   <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
     <h1 class="font-display text-4xl font-black text-ink md:text-[52px]">購物車</h1>
 
-    <template v-if="!loading && items.length > 0">
-      <div v-if="total >= 500" class="flex items-center gap-2.5 self-start rounded bg-fern-bg px-[18px] py-2.5 text-[15px] font-medium text-fern sm:self-auto">
+    <template v-if="!loading && items.length > 0 && quote">
+      <div v-if="quote.is_free_shipping" class="flex items-center gap-2.5 self-start rounded bg-fern-bg px-[18px] py-2.5 text-[15px] font-medium text-fern sm:self-auto">
         <%- include('../partials/icon', { name: 'check', cls: 'size-[18px]' }) %>
-        已達免運門檻
+        已達宅配免運門檻
       </div>
       <div v-else class="self-start rounded bg-saffron-bg px-[18px] py-2.5 text-[15px] font-medium text-saffron-ink sm:self-auto">
-        再買 NT$ {{ (500 - total).toLocaleString() }} 即可享免運費
+        再買 NT$ {{ (quote.free_shipping_threshold - quote.subtotal).toLocaleString() }} 即可享宅配免運
       </div>
     </template>
   </div>
@@ -80,14 +80,19 @@
         <span class="text-ink-soft">商品小計</span>
         <span class="font-medium text-ink">NT$ {{ total.toLocaleString() }}</span>
       </div>
-      <div class="flex justify-between text-[15px]">
-        <span class="text-ink-soft">運費</span>
-        <span class="font-medium" :class="total >= 500 ? 'text-fern' : 'text-ink'">{{ total >= 500 ? '免運' : 'NT$ 150' }}</span>
+      <div class="flex flex-col gap-1.5">
+        <div class="flex justify-between text-[15px]">
+          <span class="text-ink-soft">宅配運費</span>
+          <span v-if="!quote" class="font-medium text-ink-soft">—</span>
+          <span v-else-if="quote.is_free_shipping" class="font-medium text-fern">免運</span>
+          <span v-else class="font-medium text-ink">NT$ {{ quote.delivery_fee.toLocaleString() }}</span>
+        </div>
+        <p class="text-xs text-ink-soft">超商取貨、偏遠地區與當日急件費用將於結帳時計算</p>
       </div>
       <div class="flex items-center justify-between border-t border-line pt-5">
-        <span class="font-bold text-ink">總計</span>
+        <span class="font-bold text-ink">預估總計</span>
         <span class="font-display text-[30px] font-black text-ink">
-          NT$ {{ (total + (total >= 500 ? 0 : 150)).toLocaleString() }}
+          NT$ {{ (quote ? quote.total_amount : total).toLocaleString() }}
         </span>
       </div>
       <button @click="goCheckout" class="btn-primary w-full py-[17px] text-[17px]">前往結帳</button>

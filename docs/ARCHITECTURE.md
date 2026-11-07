@@ -21,15 +21,17 @@
 │   │   ├── sessionMiddleware.js    # 提取 X-Session-Id header → 設定 req.sessionId（訪客購物車用）
 │   │   └── errorHandler.js         # 全域錯誤處理：安全訊息對照表，500 一律回「伺服器內部錯誤」
 │   ├── utils/
-│   │   └── ecpay.js                # 綠界 ECPay 工具：CheckMacValue 簽章、URL 編碼、AIO 表單產生、QueryTradeInfo 查詢
+│   │   ├── ecpay.js                # 綠界 ECPay 工具：CheckMacValue 簽章、URL 編碼、AIO 表單產生、QueryTradeInfo 查詢
+│   │   └── shipping.js             # 運費計算（純函式）：配送方式、滿額免運、偏遠地區判定、當日急件附加費
 │   └── routes/
 │       ├── authRoutes.js           # 認證路由：註冊、登入、個人資料
 │       ├── productRoutes.js        # 公開商品路由：列表（分頁）、詳情
 │       ├── cartRoutes.js           # 購物車路由：CRUD（含 dualAuth 雙模式認證邏輯）
-│       ├── orderRoutes.js          # 訂單路由：建立、列表、詳情、模擬付款、綠界付款查詢（全部需 JWT）
+│       ├── orderRoutes.js          # 訂單路由：建立（含運費計算）、列表、詳情、模擬付款、綠界付款查詢（全部需 JWT）
+│       ├── shippingRoutes.js       # 運費路由：運費試算（公開）
 │       ├── adminProductRoutes.js   # 後台商品路由：CRUD（需 JWT + admin）
 │       ├── adminOrderRoutes.js     # 後台訂單路由：列表（含狀態篩選）、詳情（需 JWT + admin）
-│       └── pageRoutes.js           # 頁面路由：渲染 EJS 模板（無認證）+ 綠界付款表單頁
+│       └── pageRoutes.js           # 頁面路由：渲染 EJS 模板（無認證，前台頁注入 shippingRates）+ 綠界付款表單頁
 │
 ├── views/
 │   ├── layouts/
@@ -79,12 +81,14 @@
 │
 └── tests/
     ├── setup.js                    # 測試輔助：getAdminToken()、registerUser()
+    ├── shipping.test.js            # Shipping 模組單元測試（純函式，不啟動 app）
     ├── auth.test.js                # 認證 API 測試
     ├── products.test.js            # 商品 API 測試
     ├── cart.test.js                # 購物車 API 測試
     ├── orders.test.js              # 訂單 API 測試
     ├── adminProducts.test.js       # 後台商品 API 測試
-    └── adminOrders.test.js         # 後台訂單 API 測試
+    ├── adminOrders.test.js         # 後台訂單 API 測試
+    └── shippingApi.test.js         # 運費試算 API、建立訂單運費、綠界金額整合測試
 ```
 
 ## 啟動流程
@@ -110,7 +114,8 @@ server.js
        │    ├─ /api/admin/orders   → adminOrderRoutes  (authMiddleware + adminMiddleware)
        │    ├─ /api/products     → productRoutes       (公開)
        │    ├─ /api/cart         → cartRoutes          (dualAuth)
-       │    └─ /api/orders       → orderRoutes         (authMiddleware)
+       │    ├─ /api/orders       → orderRoutes         (authMiddleware)
+       │    └─ /api/shipping     → shippingRoutes      (公開)
        ├─ 掛載頁面路由
        │    └─ /                 → pageRoutes          (公開)
        ├─ 404 handler（API 回 JSON，頁面回 EJS）
@@ -153,6 +158,12 @@ server.js
 | GET | `/api/orders/:id` | JWT | 訂單詳情 | orderRoutes.js |
 | PATCH | `/api/orders/:id/pay` | JWT | 模擬付款（開發除錯用） | orderRoutes.js |
 | POST | `/api/orders/:id/check-payment` | JWT | 查詢綠界付款狀態 | orderRoutes.js |
+
+### 運費（/api/shipping）
+
+| 方法 | 路徑 | 認證 | 說明 | 檔案 |
+|------|------|------|------|------|
+| POST | `/api/shipping/quote` | 無 | 運費試算（結帳頁即時顯示明細） | shippingRoutes.js |
 
 ### 後台商品（/api/admin/products）
 
@@ -329,9 +340,16 @@ server.js
 | recipient_name | TEXT | NOT NULL | 收件人姓名 |
 | recipient_email | TEXT | NOT NULL | 收件人 Email |
 | recipient_address | TEXT | NOT NULL | 收件地址 |
-| total_amount | INTEGER | NOT NULL | 訂單總金額 |
+| total_amount | INTEGER | NOT NULL | 訂單總金額（商品小計 + 運費） |
 | status | TEXT | NOT NULL DEFAULT 'pending', CHECK IN ('pending','paid','failed') | 訂單狀態 |
 | merchant_trade_no | TEXT | 可為 NULL | 綠界交易編號（由 order_no 去除連字號產生，如 `ORD20260412A1B2C`） |
+| subtotal_amount | INTEGER | 可為 NULL | 商品小計 Σ(price × quantity)（migration 時舊訂單回填為 total_amount） |
+| shipping_method | TEXT | 可為 NULL, CHECK IN ('home_delivery','cvs_pickup') | 配送方式（運費功能上線前的舊訂單為 NULL） |
+| shipping_fee | INTEGER | NOT NULL DEFAULT 0 | 運費合計（下單時快照） |
+| is_remote_area | INTEGER | NOT NULL DEFAULT 0 | 是否偏遠地區（0/1，由伺服器依地址判定） |
+| is_urgent | INTEGER | NOT NULL DEFAULT 0 | 是否當日急件（0/1） |
+
+> orders 的後加欄位（`merchant_trade_no` 與運費欄位）皆透過 `database.js` 的 `addColumnIfNotExists()` 以 `PRAGMA table_info` 檢查後 `ALTER TABLE ADD COLUMN`，啟動時可重複執行。
 | created_at | TEXT | NOT NULL DEFAULT datetime('now') | 建立時間 |
 
 ### order_items
@@ -353,21 +371,26 @@ server.js
 用戶呼叫 POST /api/orders (需 JWT)
 │
 ├─ 1. 驗證收件人資訊（recipientName, recipientEmail, recipientAddress）
-├─ 2. 取得用戶購物車所有品項（JOIN products 取得即時價格與庫存）
-├─ 3. 檢查購物車是否為空 → 400 CART_EMPTY
-├─ 4. 檢查每個品項庫存是否充足 → 400 STOCK_INSUFFICIENT（列出所有不足商品名稱）
-├─ 5. 計算 totalAmount = Σ(price × quantity)
-├─ 6. 生成 orderNo: ORD-YYYYMMDD-{5碼UUID}
+├─ 2. 驗證配送選項 parseShippingOptions()（shippingMethod 預設宅配、isUrgent 預設 false）
+├─ 3. 取得用戶購物車所有品項（JOIN products 取得即時價格與庫存）
+├─ 4. 檢查購物車是否為空 → 400 CART_EMPTY
+├─ 5. 檢查每個品項庫存是否充足 → 400 STOCK_INSUFFICIENT（列出所有不足商品名稱）
+├─ 6. 計算 subtotal = Σ(price × quantity)
+├─ 7. 計算運費（src/utils/shipping.js）
+│     calculateShipping({ subtotal, shippingMethod,
+│                         isRemoteArea: isRemoteAddress(recipientAddress), isUrgent })
+│     → shippingFee、totalAmount = subtotal + shippingFee
+├─ 8. 生成 orderNo: ORD-YYYYMMDD-{5碼UUID}
 │
-└─ 7. 🔒 Transaction 開始
-     ├─ INSERT orders 記錄
+└─ 9. 🔒 Transaction 開始
+     ├─ INSERT orders 記錄（含 subtotal_amount、shipping_*、total_amount）
      ├─ 對每個購物車品項：
      │   ├─ INSERT order_items（快照 product_name, product_price）
      │   └─ UPDATE products SET stock = stock - quantity
      └─ DELETE cart_items WHERE user_id = ?
      🔒 Transaction 結束
 │
-└─ 8. 回傳 201 + 訂單詳情
+└─ 10. 回傳 201 + 訂單詳情
 ```
 
 ## 綠界金流付款流程
@@ -378,7 +401,7 @@ server.js
 用戶結帳 → POST /api/orders（建立訂單，含 merchant_trade_no）
   │
   ├─ 前端導向 GET /ecpay/payment/:orderId
-  │    └─ Server 產生 ECPay AIO 參數（MerchantTradeNo, TotalAmount, ItemName 等）
+  │    └─ Server 產生 ECPay AIO 參數（MerchantTradeNo, TotalAmount = 含運總額, ItemName 含「運費 x1」等）
   │    └─ 計算 CheckMacValue（SHA256，ECPay 專用 URL 編碼）
   │    └─ 回傳自動送出 HTML 表單 → 瀏覽器 POST 至綠界
   │

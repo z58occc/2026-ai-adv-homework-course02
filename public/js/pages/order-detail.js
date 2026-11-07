@@ -18,6 +18,11 @@ createApp({
       failed: { label: '付款失敗', cls: 'bg-berry-bg text-berry' },
     };
 
+    const shippingMethodLabels = {
+      home_delivery: '宅配',
+      cvs_pickup: '超商取貨',
+    };
+
     const paymentMessages = {
       success: { text: '付款成功！感謝您的購買。', cls: 'bg-fern-bg text-fern' },
       failed: { text: '付款失敗，請重試。', cls: 'bg-berry-bg text-berry' },
@@ -60,6 +65,6 @@ createApp({
       }
     });
 
-    return { order, loading, paying, paymentResult, statusMap, paymentMessages, checkPayment };
+    return { order, loading, paying, paymentResult, statusMap, shippingMethodLabels, paymentMessages, checkPayment };
   }
 }).mount('#app');

@@ -42,6 +42,14 @@ describe('Orders API', () => {
     expect(res.body.data).toHaveProperty('items');
     expect(Array.isArray(res.body.data.items)).toBe(true);
 
+    // 未指定配送方式預設宅配；總額 = 商品小計 + 運費
+    const { subtotal_amount, shipping_fee, total_amount } = res.body.data;
+    expect(res.body.data).toHaveProperty('shipping_method', 'home_delivery');
+    expect(subtotal_amount).toBe(
+      res.body.data.items.reduce((sum, i) => sum + i.product_price * i.quantity, 0)
+    );
+    expect(total_amount).toBe(subtotal_amount + shipping_fee);
+
     orderId = res.body.data.id;
   });
 

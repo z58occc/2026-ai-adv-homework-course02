@@ -69,15 +69,35 @@ function initializeDatabase() {
   `);
 
   // Migration: add merchant_trade_no column for ECPay integration
-  try {
-    db.exec(`ALTER TABLE orders ADD COLUMN merchant_trade_no TEXT`);
-  } catch (e) {
-    // Column already exists, ignore
+  addColumnIfNotExists('orders', 'merchant_trade_no', 'TEXT');
+
+  // Migration: shipping fee columns (see src/utils/shipping.js)
+  const subtotalAdded = addColumnIfNotExists('orders', 'subtotal_amount', 'INTEGER');
+  addColumnIfNotExists(
+    'orders',
+    'shipping_method',
+    "TEXT CHECK(shipping_method IN ('home_delivery', 'cvs_pickup'))"
+  );
+  addColumnIfNotExists('orders', 'shipping_fee', 'INTEGER NOT NULL DEFAULT 0');
+  addColumnIfNotExists('orders', 'is_remote_area', 'INTEGER NOT NULL DEFAULT 0');
+  addColumnIfNotExists('orders', 'is_urgent', 'INTEGER NOT NULL DEFAULT 0');
+
+  // Orders created before shipping fees existed had no shipping: subtotal = total
+  if (subtotalAdded) {
+    db.exec('UPDATE orders SET subtotal_amount = total_amount WHERE subtotal_amount IS NULL');
   }
 
   // Seed data
   seedAdminUser();
   seedProducts();
+}
+
+// Adds a column only when it is missing; returns true if the column was added.
+function addColumnIfNotExists(table, column, definition) {
+  const columns = db.prepare(`PRAGMA table_info(${table})`).all();
+  if (columns.some((c) => c.name === column)) return false;
+  db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${definition}`);
+  return true;
 }
 
 function seedAdminUser() {

@@ -35,18 +35,59 @@
       </div>
 
       <div class="flex flex-col gap-2.5">
-        <label class="text-sm font-medium text-ink-soft">收件地址</label>
+        <label class="text-sm font-medium text-ink-soft">{{ isCvsPickup ? '取貨門市地址' : '收件地址' }}</label>
         <input
           v-model="form.recipientAddress"
           type="text"
-          placeholder="請輸入收件地址"
+          :placeholder="isCvsPickup ? '請輸入取貨門市名稱與地址' : '請輸入收件地址'"
           class="field-input"
           :class="{ 'is-error': errors.recipientAddress }"
         />
         <p v-if="errors.recipientAddress" class="text-xs text-berry">{{ errors.recipientAddress }}</p>
       </div>
 
-      <p class="text-sm text-ink-soft">台北市區中午前下單，當日配送。其他地區 2–3 天送達。</p>
+      <!-- Shipping options -->
+      <div class="flex flex-col gap-5 pt-3">
+        <h2 class="font-display text-[26px] font-black text-ink">配送方式</h2>
+
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <label
+            class="flex cursor-pointer items-start gap-3 rounded border-[1.5px] bg-white p-4 transition-colors"
+            :class="form.shippingMethod === 'home_delivery' ? 'border-ink' : 'border-line hover:border-mist'"
+          >
+            <input v-model="form.shippingMethod" type="radio" name="shippingMethod" value="home_delivery" class="mt-1 size-4 shrink-0 accent-ink" />
+            <span class="flex flex-col gap-1">
+              <span class="font-medium text-ink">宅配到府</span>
+              <span class="text-sm text-ink-soft">NT$ <%= shippingRates.HOME_DELIVERY_FEE %>・滿 NT$ <%= shippingRates.FREE_SHIPPING_THRESHOLD.toLocaleString('en-US') %> 免運</span>
+            </span>
+          </label>
+          <label
+            class="flex cursor-pointer items-start gap-3 rounded border-[1.5px] bg-white p-4 transition-colors"
+            :class="form.shippingMethod === 'cvs_pickup' ? 'border-ink' : 'border-line hover:border-mist'"
+          >
+            <input v-model="form.shippingMethod" type="radio" name="shippingMethod" value="cvs_pickup" class="mt-1 size-4 shrink-0 accent-ink" />
+            <span class="flex flex-col gap-1">
+              <span class="font-medium text-ink">超商取貨</span>
+              <span class="text-sm text-ink-soft">NT$ <%= shippingRates.CVS_PICKUP_FEE %>・不適用滿額免運</span>
+            </span>
+          </label>
+        </div>
+
+        <label
+          class="flex cursor-pointer items-start gap-3 rounded border-[1.5px] bg-white p-4 transition-colors"
+          :class="form.isUrgent ? 'border-ink' : 'border-line hover:border-mist'"
+        >
+          <input v-model="form.isUrgent" type="checkbox" class="mt-1 size-4 shrink-0 accent-ink" />
+          <span class="flex flex-col gap-1">
+            <span class="font-medium text-ink">當日急件 <span class="text-ink-soft">+NT$ <%= shippingRates.URGENT_SURCHARGE %></span></span>
+            <span class="text-sm text-ink-soft">台北市區中午前下單，當日送達</span>
+          </span>
+        </label>
+
+        <p class="text-sm text-ink-soft">
+          離島地區（澎湖、金門、馬祖、綠島、蘭嶼、小琉球）依地址自動加收偏遠地區運費 NT$ <%= shippingRates.REMOTE_AREA_SURCHARGE %>。一般配送 2–3 天送達。
+        </p>
+      </div>
     </div>
 
     <!-- Summary -->
@@ -65,17 +106,36 @@
         <span class="text-ink-soft">商品小計</span>
         <span class="font-medium text-ink">NT$ {{ cartTotal.toLocaleString() }}</span>
       </div>
-      <div class="flex justify-between text-[15px]">
-        <span class="text-ink-soft">運費</span>
-        <span class="font-medium" :class="cartTotal >= 500 ? 'text-fern' : 'text-ink'">{{ cartTotal >= 500 ? '免運' : 'NT$ 150' }}</span>
-      </div>
+
+      <template v-if="quote">
+        <div class="flex flex-col gap-1.5">
+          <div class="flex justify-between text-[15px]">
+            <span class="text-ink-soft">{{ quote.shipping_method === 'cvs_pickup' ? '超商取貨' : '宅配運費' }}</span>
+            <span v-if="quote.is_free_shipping" class="font-medium text-fern">免運</span>
+            <span v-else class="font-medium text-ink">NT$ {{ quote.delivery_fee.toLocaleString() }}</span>
+          </div>
+          <p
+            v-if="quote.shipping_method === 'home_delivery' && !quote.is_free_shipping"
+            class="text-xs text-ink-soft"
+          >再買 NT$ {{ (quote.free_shipping_threshold - quote.subtotal).toLocaleString() }} 即享宅配免運</p>
+        </div>
+        <div v-if="quote.remote_area_fee > 0" class="flex justify-between text-[15px]">
+          <span class="text-ink-soft">偏遠地區加收</span>
+          <span class="font-medium text-ink">NT$ {{ quote.remote_area_fee.toLocaleString() }}</span>
+        </div>
+        <div v-if="quote.urgent_fee > 0" class="flex justify-between text-[15px]">
+          <span class="text-ink-soft">當日急件加收</span>
+          <span class="font-medium text-ink">NT$ {{ quote.urgent_fee.toLocaleString() }}</span>
+        </div>
+      </template>
+
       <div class="flex items-center justify-between border-t border-line pt-5">
         <span class="font-bold text-ink">總計</span>
-        <span class="font-display text-[30px] font-black text-ink">
-          NT$ {{ (cartTotal + (cartTotal >= 500 ? 0 : 150)).toLocaleString() }}
+        <span class="font-display text-[30px] font-black text-ink transition-opacity" :class="{ 'opacity-40': quoting }">
+          {{ quote ? 'NT$ ' + quote.total_amount.toLocaleString() : '計算中…' }}
         </span>
       </div>
-      <button @click="submitOrder" :disabled="submitting" class="btn-primary w-full py-[17px] text-[17px]">
+      <button @click="submitOrder" :disabled="submitting || quoting || !quote" class="btn-primary w-full py-[17px] text-[17px]">
         {{ submitting ? '處理中...' : '送出訂單' }}
       </button>
     </aside>

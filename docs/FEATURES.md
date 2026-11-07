@@ -8,12 +8,13 @@
 | 商品瀏覽 | ✅ 完成 | 公開商品列表與詳情 |
 | 購物車管理 | ✅ 完成 | 雙模式認證（JWT / Session ID） |
 | 訂單管理 | ✅ 完成 | 建立、查詢、模擬付款 |
+| 配送運費計算 | ✅ 完成 | 宅配／超商取貨、滿額免運、偏遠地區與當日急件附加費（`src/utils/shipping.js`） |
 | 綠界金流串接 | ✅ 完成 | ECPay AIO 付款、QueryTradeInfo 查詢驗證 |
 | 後台商品管理 | ✅ 完成 | 商品 CRUD |
 | 後台訂單管理 | ✅ 完成 | 訂單查詢與狀態篩選 |
 | 前台頁面 | ✅ 完成 | EJS + Tailwind CSS |
 | 後台頁面 | ✅ 完成 | EJS + Tailwind CSS |
-| 測試 | ✅ 完成 | Vitest + supertest，6 個測試檔案 |
+| 測試 | ✅ 完成 | Vitest + supertest，8 個測試檔案（含 Shipping 模組單元測試） |
 | API 文件 | ✅ 完成 | Swagger/OpenAPI 生成 |
 
 ---
@@ -222,7 +223,7 @@
 
 ### POST /api/orders — 建立訂單
 
-**行為描述**：將購物車品項轉換為訂單。使用資料庫 transaction 確保「建立訂單 + 品項快照 + 扣庫存 + 清空購物車」的原子性。
+**行為描述**：將購物車品項轉換為訂單，並依配送選項計算運費。使用資料庫 transaction 確保「建立訂單 + 品項快照 + 扣庫存 + 清空購物車」的原子性。
 
 **Request Body**：
 
@@ -230,18 +231,48 @@
 |------|------|------|----------|
 | recipientName | string | 是 | 非空 |
 | recipientEmail | string | 是 | 符合 email 正則 |
-| recipientAddress | string | 是 | 非空 |
+| recipientAddress | string | 是 | 非空；超商取貨時填取貨門市地址。伺服器依此判定是否為偏遠地區 |
+| shippingMethod | string | 否 | `home_delivery`（預設）或 `cvs_pickup` |
+| isUrgent | boolean | 否 | 是否當日急件，預設 `false`；必須為布林值 |
+
+> 前端**無法**自行宣告偏遠地區（即使送出 `isRemoteArea` 也會被忽略），一律由伺服器依 `recipientAddress` 判定，避免顧客規避附加費。
 
 **業務邏輯**：
 1. 驗證收件人三個欄位皆存在
 2. 驗證 recipientEmail 格式
-3. 從 `cart_items JOIN products` 取得購物車品項（僅查 `user_id`，不含 session）
-4. 購物車為空 → 400 CART_EMPTY
-5. 逐品項檢查庫存，不足者收集名稱 → 400「以下商品庫存不足：名稱1, 名稱2」
-6. 計算 `totalAmount = Σ(price × quantity)`
-7. 生成 `orderNo = ORD-YYYYMMDD-{5碼UUID大寫}`
-8. **Transaction**：INSERT order → INSERT order_items（快照名稱+價格） → UPDATE stock → DELETE cart_items
-9. 回傳 201 + 訂單詳情
+3. 以 `parseShippingOptions()` 驗證 `shippingMethod` / `isUrgent` 並套用預設值
+4. 從 `cart_items JOIN products` 取得購物車品項（僅查 `user_id`，不含 session）
+5. 購物車為空 → 400 CART_EMPTY
+6. 逐品項檢查庫存，不足者收集名稱 → 400「以下商品庫存不足：名稱1, 名稱2」
+7. 計算商品小計 `subtotal = Σ(price × quantity)`
+8. 呼叫 `calculateShipping({ subtotal, shippingMethod, isRemoteArea: isRemoteAddress(recipientAddress), isUrgent })` 取得運費與總額（規則見[配送運費](#配送運費)）
+9. 生成 `orderNo = ORD-YYYYMMDD-{5碼UUID大寫}`
+10. **Transaction**：INSERT order（含 `subtotal_amount`、`shipping_method`、`shipping_fee`、`is_remote_area`、`is_urgent`、`total_amount = 小計 + 運費`）→ INSERT order_items（快照名稱+價格） → UPDATE stock → DELETE cart_items
+11. 回傳 201 + 訂單詳情
+
+**回應範例**（宅配、小計 1,500、離島地址、當日急件）：
+
+```json
+{
+  "data": {
+    "id": "uuid",
+    "order_no": "ORD-20261107-A1B2C",
+    "subtotal_amount": 1500,
+    "shipping_method": "home_delivery",
+    "shipping_fee": 450,
+    "is_remote_area": 1,
+    "is_urgent": 1,
+    "total_amount": 1950,
+    "status": "pending",
+    "items": [{ "product_name": "紫色鬱金香盆栽", "product_price": 750, "quantity": 2 }],
+    "created_at": "2026-11-07 13:00:00"
+  },
+  "error": null,
+  "message": "訂單建立成功"
+}
+```
+
+> `is_remote_area` / `is_urgent` 直接映射 SQLite 欄位，故為整數 `0` / `1`。
 
 **錯誤情境**：
 
@@ -249,6 +280,8 @@
 |--------|--------|------|
 | 400 | VALIDATION_ERROR | 缺少收件人欄位 |
 | 400 | VALIDATION_ERROR | Email 格式不正確 |
+| 400 | VALIDATION_ERROR | `shippingMethod` 不是 `home_delivery` / `cvs_pickup` |
+| 400 | VALIDATION_ERROR | `isUrgent` 不是布林值 |
 | 400 | CART_EMPTY | 購物車為空 |
 | 400 | STOCK_INSUFFICIENT | 庫存不足（訊息中列出所有不足商品名稱） |
 
@@ -260,11 +293,13 @@
 
 ### GET /api/orders/:id — 訂單詳情
 
-**行為描述**：回傳訂單完整資訊（含品項列表）。僅能查看自己的訂單。
+**行為描述**：回傳訂單完整資訊（含品項列表與運費欄位 `subtotal_amount`、`shipping_method`、`shipping_fee`、`is_remote_area`、`is_urgent`）。僅能查看自己的訂單。
 
 **業務邏輯**：
 - 查詢條件含 `user_id`，他人訂單視為 404
 - order_items 中的 product_name / product_price 為下單時快照
+- 運費相關欄位亦為下單時快照，日後調整費率不影響既有訂單
+- 運費功能上線前的舊訂單：`shipping_method` 為 `null`、`shipping_fee` 為 `0`、`subtotal_amount` 已回填為 `total_amount`
 
 **錯誤情境**：
 
@@ -297,6 +332,128 @@
 
 ---
 
+## 配送運費
+
+> 運費邏輯集中於 `src/utils/shipping.js`（純函式、無外部依賴），建立訂單、運費試算 API 與前台頁面的費率文案皆以此為唯一來源。
+
+### 運費規則
+
+| 項目 | 金額 | 說明 |
+|------|------|------|
+| 宅配基本運費 | 120 | `shippingMethod = home_delivery` |
+| 超商取貨 | 60 | `shippingMethod = cvs_pickup`；**不是基本運費**，滿額不免除 |
+| 滿額免運 | -120 | 商品小計 **≥ 1,500** 免除「宅配基本運費」（1,499 仍收 120） |
+| 偏遠地區 | +200 | 依收件地址判定為離島時加收 |
+| 當日急件 | +250 | `isUrgent = true` 時加收 |
+
+計算公式：
+
+```
+運費     = 配送方式費用（宅配 120 / 宅配滿額 0 / 超商 60）+ 偏遠地區附加費 + 當日急件附加費
+訂單總額 = 商品小計 + 運費
+```
+
+- 附加費彼此獨立、可疊加，不受配送方式或滿額免運影響（滿額只免基本運費）
+
+### 計算範例
+
+| 情境 | 小計 | 配送 | 偏遠 | 急件 | 運費 | 總額 |
+|------|------|------|------|------|------|------|
+| 宅配基本運費 | 1,000 | 宅配 | | | 120 | 1,120 |
+| 超商取貨 | 1,000 | 超商 | | | 60 | 1,060 |
+| 未達免運門檻 | 1,499 | 宅配 | | | 120 | 1,619 |
+| 剛好達免運門檻 | 1,500 | 宅配 | | | 0 | 1,500 |
+| 超商滿額不免 | 1,500 | 超商 | | | 60 | 1,560 |
+| 偏遠地區 | 1,000 | 宅配 | ✓ | | 320 | 1,320 |
+| 當日急件 | 1,000 | 宅配 | | ✓ | 370 | 1,370 |
+| 多項附加費 | 1,000 | 宅配 | ✓ | ✓ | 570 | 1,570 |
+| 滿額免運 + 附加費 | 1,500 | 宅配 | ✓ | ✓ | 450 | 1,950 |
+
+### 偏遠地區判定
+
+收件地址（去除空白後）包含 `REMOTE_AREA_KEYWORDS` 任一名稱即視為偏遠地區：
+
+| 地區 | 名稱 |
+|------|------|
+| 縣級 | 澎湖縣、金門縣、連江縣 |
+| 澎湖 | 馬公市、湖西鄉、白沙鄉、西嶼鄉、望安鄉、七美鄉 |
+| 金門 | 金城鎮、金湖鎮、金沙鎮、金寧鄉、烈嶼鄉、烏坵鄉 |
+| 連江（馬祖） | 南竿鄉、北竿鄉、莒光鄉、東引鄉 |
+| 臺東 | 綠島鄉、蘭嶼鄉 |
+| 屏東 | 琉球鄉 |
+
+- 刻意使用完整縣／鄉鎮名稱，不用「金門」「澎湖」等短詞，避免誤判「台北市金門街」「新北市土城區金城路」這類以地名命名的街道
+- 判定由伺服器執行，前端無法覆寫
+- 地址為自由文字，若僅填村里名（如「馬祖南竿介壽村」未寫「南竿鄉」）可能判定不到；如需更嚴謹，建議日後改為結構化的縣市／鄉鎮欄位
+
+### Shipping 工具模組（src/utils/shipping.js）
+
+| 匯出 | 說明 |
+|------|------|
+| `SHIPPING_METHODS` | `{ HOME_DELIVERY: 'home_delivery', CVS_PICKUP: 'cvs_pickup' }` |
+| `SHIPPING_RATES` | `HOME_DELIVERY_FEE`、`CVS_PICKUP_FEE`、`FREE_SHIPPING_THRESHOLD`、`REMOTE_AREA_SURCHARGE`、`URGENT_SURCHARGE` |
+| `REMOTE_AREA_KEYWORDS` | 偏遠地區判定清單 |
+| `isValidShippingMethod(method)` | 是否為支援的配送方式 |
+| `isRemoteAddress(address)` | 依地址判定是否為偏遠地區（非字串回傳 `false`） |
+| `parseShippingOptions({ shippingMethod, isUrgent })` | 驗證 request body 並套用預設值，回傳 `{ value }` 或 `{ error }` |
+| `calculateShipping({ subtotal, shippingMethod, isRemoteArea, isUrgent })` | 回傳 `{ shippingMethod, subtotal, deliveryFee, remoteAreaFee, urgentFee, shippingFee, isFreeShipping, isRemoteArea, isUrgent, totalAmount }`；參數不合法時拋出 `TypeError` |
+
+### POST /api/shipping/quote — 運費試算
+
+**行為描述**：公開端點，供購物車／結帳頁即時顯示運費明細。不建立任何資料；實際下單時 `POST /api/orders` 會以購物車內容在伺服器端重新計算。
+
+**認證**：無
+
+**Request Body**：
+
+| 欄位 | 型別 | 必填 | 說明 |
+|------|------|------|------|
+| subtotal | integer | 是 | 商品小計，非負整數 |
+| shippingMethod | string | 否 | `home_delivery`（預設）/ `cvs_pickup` |
+| isUrgent | boolean | 否 | 預設 `false` |
+| recipientAddress | string | 否 | 用於判定偏遠地區；未提供視為非偏遠地區 |
+
+**回應結構**：
+
+```json
+{
+  "data": {
+    "shipping_method": "home_delivery",
+    "subtotal": 1500,
+    "delivery_fee": 0,
+    "remote_area_fee": 200,
+    "urgent_fee": 250,
+    "shipping_fee": 450,
+    "is_free_shipping": true,
+    "is_remote_area": true,
+    "is_urgent": true,
+    "total_amount": 1950,
+    "free_shipping_threshold": 1500
+  },
+  "error": null,
+  "message": "試算成功"
+}
+```
+
+**錯誤情境**：
+
+| 狀態碼 | 錯誤碼 | 情境 |
+|--------|--------|------|
+| 400 | VALIDATION_ERROR | `subtotal` 缺少或不是非負整數 |
+| 400 | VALIDATION_ERROR | `shippingMethod` 不合法 |
+| 400 | VALIDATION_ERROR | `isUrgent` 不是布林值 |
+
+### 前台頁面
+
+| 頁面 | 行為 |
+|------|------|
+| 結帳頁 | 選擇「宅配到府／超商取貨」與「當日急件」；變更選項或地址（輸入停頓 400ms）時呼叫試算 API，摘要逐項列出配送費、偏遠地區加收、當日急件加收與總計；試算中停用「送出訂單」 |
+| 購物車頁 | 以預設宅配呼叫試算 API，顯示「再買 NT$ X 即可享宅配免運」與預估總計 |
+| 訂單詳情頁（前台／後台） | 顯示商品小計、運費（配送方式）、偏遠地區／當日急件標籤與總計；舊訂單僅顯示總計 |
+| 首頁、商品詳情頁 | 免運門檻與急件費用文案由 `SHIPPING_RATES` 伺服器端渲染 |
+
+---
+
 ## 綠界金流串接（ECPay AIO）
 
 > **認證模式**：付款查詢需 JWT（authMiddleware）；付款頁面路由為公開（orderId 為 UUID 不可猜測）。
@@ -322,7 +479,7 @@
 - 從 DB 讀取訂單與品項資訊
 - 訂單不存在 → 404
 - 訂單狀態非 pending → 302 重導至訂單詳情頁
-- 產生 ECPay 所需參數：MerchantID、MerchantTradeNo、MerchantTradeDate（台灣時區）、TotalAmount、ItemName（商品名稱以 `#` 連接，上限 400 bytes）等
+- 產生 ECPay 所需參數：MerchantID、MerchantTradeNo、MerchantTradeDate（台灣時區）、TotalAmount（= 訂單 `total_amount`，**已含運費**）、ItemName（商品名稱以 `#` 連接，上限 400 bytes；運費大於 0 時附加「運費 x1」）等
 - 計算 CheckMacValue（SHA256，ECPay 專用 URL 編碼）
 - 設定 ClientBackURL 為 `/orders/:orderId?payment=pending`（付款後瀏覽器導回）
 - 設定 ReturnURL 為 `${BASE_URL}/ecpay/notify`（本地端不會被呼叫，但為必填欄位）
@@ -470,7 +627,7 @@
 
 **行為描述**：回傳訂單完整資訊，額外包含下單使用者的 name 和 email。無所有權限制。
 
-**回應額外欄位**：
+**回應額外欄位**（另含運費欄位 `subtotal_amount`、`shipping_method`、`shipping_fee`、`is_remote_area`、`is_urgent`）：
 ```json
 {
   "user": {

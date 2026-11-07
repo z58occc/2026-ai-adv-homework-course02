@@ -60,9 +60,27 @@
             </tr>
           </tbody>
         </table>
-        <div class="flex items-center justify-end gap-6 pt-6">
-          <span class="font-bold text-ink">總計</span>
-          <span class="font-display text-[28px] font-black text-ink md:text-[34px]">NT$ {{ order.total_amount.toLocaleString() }}</span>
+        <div class="ml-auto flex w-full max-w-sm flex-col gap-3 pt-6">
+          <!-- 運費功能上線前的舊訂單沒有 shipping_method，只顯示總計 -->
+          <template v-if="order.shipping_method">
+            <div class="flex justify-between text-[15px]">
+              <span class="text-ink-soft">商品小計</span>
+              <span class="font-medium text-ink">NT$ {{ order.subtotal_amount.toLocaleString() }}</span>
+            </div>
+            <div class="flex justify-between gap-4 text-[15px]">
+              <span class="text-ink-soft">運費（{{ shippingMethodLabels[order.shipping_method] || order.shipping_method }}）</span>
+              <span v-if="order.shipping_fee === 0" class="font-medium text-fern">免運</span>
+              <span v-else class="font-medium text-ink">NT$ {{ order.shipping_fee.toLocaleString() }}</span>
+            </div>
+            <div v-if="order.is_remote_area || order.is_urgent" class="flex flex-wrap justify-end gap-2">
+              <span v-if="order.is_remote_area" class="rounded-[3px] bg-lilac px-2.5 py-1 text-xs font-bold text-ink-soft">含偏遠地區加收</span>
+              <span v-if="order.is_urgent" class="rounded-[3px] bg-saffron-bg px-2.5 py-1 text-xs font-bold text-saffron-ink">當日急件</span>
+            </div>
+          </template>
+          <div class="flex items-center justify-between gap-6 border-t border-line pt-4">
+            <span class="font-bold text-ink">總計</span>
+            <span class="font-display text-[28px] font-black text-ink md:text-[34px]">NT$ {{ order.total_amount.toLocaleString() }}</span>
+          </div>
         </div>
       </div>
 

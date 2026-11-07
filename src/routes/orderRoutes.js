@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const db = require('../database');
 const authMiddleware = require('../middleware/authMiddleware');
 const { queryTradeInfo, verifyCheckMacValue, ECPAY_CONFIG } = require('../utils/ecpay');
+const { parseShippingOptions, isRemoteAddress, calculateShipping } = require('../utils/shipping');
 
 const router = express.Router();
 
@@ -38,6 +39,16 @@ function generateOrderNo() {
  *                 format: email
  *               recipientAddress:
  *                 type: string
+ *                 description: 收件地址（超商取貨時為取貨門市地址）；伺服器依此判定是否為偏遠地區（離島）
+ *               shippingMethod:
+ *                 type: string
+ *                 enum: [home_delivery, cvs_pickup]
+ *                 default: home_delivery
+ *                 description: 配送方式。home_delivery 宅配（基本運費 120，商品小計滿 1500 免基本運費）；cvs_pickup 超商取貨（60，滿額不免）
+ *               isUrgent:
+ *                 type: boolean
+ *                 default: false
+ *                 description: 是否當日急件（加收 250）
  *     responses:
  *       201:
  *         description: 訂單建立成功
@@ -53,8 +64,26 @@ function generateOrderNo() {
  *                       type: string
  *                     order_no:
  *                       type: string
+ *                     subtotal_amount:
+ *                       type: integer
+ *                       description: 商品小計
+ *                     shipping_method:
+ *                       type: string
+ *                       enum: [home_delivery, cvs_pickup]
+ *                     shipping_fee:
+ *                       type: integer
+ *                       description: 運費合計（配送方式費用 + 偏遠地區附加費 + 當日急件附加費）
+ *                     is_remote_area:
+ *                       type: integer
+ *                       enum: [0, 1]
+ *                       description: 是否偏遠地區（由收件地址判定）
+ *                     is_urgent:
+ *                       type: integer
+ *                       enum: [0, 1]
+ *                       description: 是否當日急件
  *                     total_amount:
  *                       type: integer
+ *                       description: 訂單總額（商品小計 + 運費）
  *                     status:
  *                       type: string
  *                     items:
@@ -76,7 +105,7 @@ function generateOrderNo() {
  *                 message:
  *                   type: string
  *       400:
- *         description: 購物車為空或庫存不足或收件資訊缺失
+ *         description: 購物車為空、庫存不足、收件資訊缺失，或 shippingMethod / isUrgent 不合法
  */
 router.post('/', (req, res) => {
   const { recipientName, recipientEmail, recipientAddress } = req.body;
@@ -98,6 +127,16 @@ router.post('/', (req, res) => {
       message: 'Email 格式不正確'
     });
   }
+
+  const shippingOptions = parseShippingOptions(req.body);
+  if (shippingOptions.error) {
+    return res.status(400).json({
+      data: null,
+      error: 'VALIDATION_ERROR',
+      message: shippingOptions.error
+    });
+  }
+  const { shippingMethod, isUrgent } = shippingOptions.value;
 
   // Get cart items with product info
   const cartItems = db.prepare(
@@ -127,10 +166,17 @@ router.post('/', (req, res) => {
     });
   }
 
-  // Calculate total
-  const totalAmount = cartItems.reduce(
+  // Calculate subtotal, then shipping fee and total via the Shipping module.
+  // Remote area is derived from the address server-side, never trusted from the client.
+  const subtotal = cartItems.reduce(
     (sum, item) => sum + item.product_price * item.quantity, 0
   );
+  const shipping = calculateShipping({
+    subtotal,
+    shippingMethod,
+    isRemoteArea: isRemoteAddress(recipientAddress),
+    isUrgent
+  });
 
   const orderId = uuidv4();
   const orderNo = generateOrderNo();
@@ -139,9 +185,16 @@ router.post('/', (req, res) => {
   // Transaction: create order, order items, deduct stock, clear cart
   const createOrder = db.transaction(() => {
     db.prepare(
-      `INSERT INTO orders (id, order_no, user_id, recipient_name, recipient_email, recipient_address, total_amount, merchant_trade_no)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-    ).run(orderId, orderNo, userId, recipientName, recipientEmail, recipientAddress, totalAmount, merchantTradeNo);
+      `INSERT INTO orders (id, order_no, user_id, recipient_name, recipient_email, recipient_address,
+                           subtotal_amount, shipping_method, shipping_fee, is_remote_area, is_urgent,
+                           total_amount, merchant_trade_no)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+    ).run(
+      orderId, orderNo, userId, recipientName, recipientEmail, recipientAddress,
+      shipping.subtotal, shipping.shippingMethod, shipping.shippingFee,
+      shipping.isRemoteArea ? 1 : 0, shipping.isUrgent ? 1 : 0,
+      shipping.totalAmount, merchantTradeNo
+    );
 
     const insertItem = db.prepare(
       `INSERT INTO order_items (id, order_id, product_id, product_name, product_price, quantity)
@@ -169,6 +222,11 @@ router.post('/', (req, res) => {
     data: {
       id: order.id,
       order_no: order.order_no,
+      subtotal_amount: order.subtotal_amount,
+      shipping_method: order.shipping_method,
+      shipping_fee: order.shipping_fee,
+      is_remote_area: order.is_remote_area,
+      is_urgent: order.is_urgent,
       total_amount: order.total_amount,
       status: order.status,
       items: orderItems,
@@ -266,8 +324,27 @@ router.get('/', (req, res) => {
  *                       type: string
  *                     recipient_address:
  *                       type: string
+ *                     subtotal_amount:
+ *                       type: integer
+ *                       nullable: true
+ *                       description: 商品小計
+ *                     shipping_method:
+ *                       type: string
+ *                       nullable: true
+ *                       enum: [home_delivery, cvs_pickup]
+ *                       description: 配送方式（運費功能上線前的舊訂單為 null）
+ *                     shipping_fee:
+ *                       type: integer
+ *                       description: 運費合計
+ *                     is_remote_area:
+ *                       type: integer
+ *                       enum: [0, 1]
+ *                     is_urgent:
+ *                       type: integer
+ *                       enum: [0, 1]
  *                     total_amount:
  *                       type: integer
+ *                       description: 訂單總額（商品小計 + 運費）
  *                     status:
  *                       type: string
  *                     created_at:

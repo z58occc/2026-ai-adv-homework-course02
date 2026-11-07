@@ -17,6 +17,7 @@ npm run openapi        # 從 JSDoc 生成 openapi.json
 - 所有 API 回應統一格式：`{ data, error, message }`，錯誤時 `data: null`
 - 購物車使用**雙模式認證**（dualAuth）：優先 JWT，fallback 到 `X-Session-Id`；建立訂單僅支援 JWT
 - 訂單建立使用 `db.transaction()` 原子操作：建立訂單 → 寫入品項快照 → 扣庫存 → 清空購物車
+- 運費一律由 `src/utils/shipping.js` 計算（純函式，規則見 docs/FEATURES.md「配送運費」）；`total_amount` = 商品小計 + 運費；偏遠地區由伺服器依地址判定，前端只透過 `POST /api/shipping/quote` 取得試算，不自行計價
 - 資料庫為 SQLite（better-sqlite3 同步 API），WAL 模式，foreign keys 啟用
 - 功能開發使用 docs/plans/ 記錄計畫；完成後移至 docs/plans/archive/
 
