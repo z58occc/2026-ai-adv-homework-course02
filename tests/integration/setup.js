@@ -1,5 +1,14 @@
+// 整合測試只能使用記憶體資料庫（由 vitest.config.js 的 test.env 設定），
+// 必須在載入 app（會初始化資料庫）之前檢查，避免誤寫專案的 database.sqlite。
+if (process.env.DB_PATH !== ':memory:') {
+  throw new Error(
+    `Integration tests must run with DB_PATH=':memory:' (got ${JSON.stringify(process.env.DB_PATH)}). ` +
+    'Run them via `npm run test:integration` so vitest.config.js applies.'
+  );
+}
+
 const request = require('supertest');
-const app = require('../app');
+const app = require('../../app');
 
 /**
  * Login with the seed admin account and return the JWT token.

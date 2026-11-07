@@ -95,20 +95,20 @@ router.get('/profile', authMiddleware, (req, res) => { ... });
  */
 ```
 
-6. **撰寫測試**：在 `tests/` 下新增對應測試檔案
-7. **更新 vitest.config.js**：在 `sequence.files` 中加入新測試檔案（注意順序依賴）
+6. **撰寫測試**：純函式放 `tests/unit/`，API 放 `tests/integration/`（每個測試檔各自擁有記憶體資料庫，無需註冊執行順序）；詳見 [TESTING.md](./TESTING.md)
+7. **更新 Postman Collection**：執行 `npm run postman`（會重新產生 `openapi.json`）
 
 ## 業務規則模組（src/utils/）
 
 計價、金流等業務規則封裝在 `src/utils/` 的獨立模組，路由只負責驗證輸入、呼叫模組、寫入 DB、回應。以 `src/utils/shipping.js` 為例：
 
-- **純函式、無外部依賴**：不 `require` database、不讀 `req`/`res`，輸入參數、回傳結果，因此可直接單元測試（見 `tests/shipping.test.js`）
+- **純函式、無外部依賴**：不 `require` database、不讀 `req`/`res`，輸入參數、回傳結果，因此可直接單元測試（見 `tests/unit/shipping.test.js`）
 - **常數集中**：費率與門檻放在 `SHIPPING_RATES`，前台頁面文案透過 `pageRoutes.js` 的 `renderFront()` 注入 `shippingRates` 使用，不在模板寫死數字
 - **前端不自行計價**：結帳／購物車頁的運費一律呼叫 `POST /api/shipping/quote` 取得；下單時伺服器再以購物車內容重算
 - **影響價格的條件由伺服器判定**：偏遠地區由 `isRemoteAddress(recipientAddress)` 判定，不接受前端傳入
 - **驗證與計算分離**：`parseShippingOptions()` 回傳 `{ value }` / `{ error }` 供路由轉成 400；`calculateShipping()` 遇不合法參數拋 `TypeError`（屬程式錯誤）
 
-調整運費規則時：修改 `src/utils/shipping.js` → 更新 `tests/shipping.test.js` → 更新 `docs/FEATURES.md` 的「配送運費」章節。
+調整運費規則時：修改 `src/utils/shipping.js` → 更新 `tests/unit/shipping.test.js` → 更新 `docs/FEATURES.md` 的「配送運費」章節。
 
 ## 新增 Middleware 步驟
 
@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS your_table (
 | `ADMIN_EMAIL` | 種子管理員信箱 | 選填 | `admin@hexschool.com` |
 | `ADMIN_PASSWORD` | 種子管理員密碼 | 選填 | `12345678` |
 | `NODE_ENV` | 執行環境 | 選填 | 無（影響 bcrypt salt rounds：`test` → 1，其他 → 10） |
+| `DB_PATH` | SQLite 檔案路徑，可為 `:memory:` | 選填 | 專案根目錄 `database.sqlite`（整合測試由 `vitest.config.js` 設為 `:memory:`） |
 | `ECPAY_MERCHANT_ID` | 綠界商店代號 | 選填（目前未使用） | `3002607` |
 | `ECPAY_HASH_KEY` | 綠界 HashKey | 選填（目前未使用） | — |
 | `ECPAY_HASH_IV` | 綠界 HashIV | 選填（目前未使用） | — |

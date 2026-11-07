@@ -422,21 +422,26 @@
                 ],
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "夏日繡球花束"
                   },
                   "description": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "當季繡球搭配尤加利葉，手工包裝"
                   },
                   "price": {
                     "type": "integer",
-                    "minimum": 1
+                    "minimum": 1,
+                    "example": 1280
                   },
                   "stock": {
                     "type": "integer",
-                    "minimum": 0
+                    "minimum": 0,
+                    "example": 20
                   },
                   "image_url": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400"
                   }
                 }
               }
@@ -527,21 +532,26 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "夏日繡球花束（大）"
                   },
                   "description": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "加大版繡球花束"
                   },
                   "price": {
                     "type": "integer",
-                    "minimum": 1
+                    "minimum": 1,
+                    "example": 1580
                   },
                   "stock": {
                     "type": "integer",
-                    "minimum": 0
+                    "minimum": 0,
+                    "example": 15
                   },
                   "image_url": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400"
                   }
                 }
               }
@@ -674,14 +684,17 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "format": "email"
+                    "format": "email",
+                    "example": "newuser@example.com"
                   },
                   "password": {
                     "type": "string",
-                    "minLength": 6
+                    "minLength": 6,
+                    "example": "password123"
                   },
                   "name": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "王小明"
                   }
                 }
               }
@@ -761,10 +774,12 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "format": "email"
+                    "format": "email",
+                    "example": "admin@hexschool.com"
                   },
                   "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "12345678"
                   }
                 }
               }
@@ -1076,7 +1091,8 @@
                 "properties": {
                   "quantity": {
                     "type": "integer",
-                    "minimum": 1
+                    "minimum": 1,
+                    "example": 2
                   }
                 }
               }
@@ -1201,15 +1217,18 @@
                 ],
                 "properties": {
                   "recipientName": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "王小明"
                   },
                   "recipientEmail": {
                     "type": "string",
-                    "format": "email"
+                    "format": "email",
+                    "example": "buyer@example.com"
                   },
                   "recipientAddress": {
                     "type": "string",
-                    "description": "收件地址（超商取貨時為取貨門市地址）；伺服器依此判定是否為偏遠地區（離島）"
+                    "description": "收件地址（超商取貨時為取貨門市地址）；伺服器依此判定是否為偏遠地區（離島）",
+                    "example": "台北市大安區忠孝東路四段 1 號"
                   },
                   "shippingMethod": {
                     "type": "string",
@@ -1852,7 +1871,8 @@
                   "subtotal": {
                     "type": "integer",
                     "minimum": 0,
-                    "description": "商品小計"
+                    "description": "商品小計",
+                    "example": 1200
                   },
                   "shippingMethod": {
                     "type": "string",
@@ -1868,7 +1888,8 @@
                   },
                   "recipientAddress": {
                     "type": "string",
-                    "description": "收件地址，用於判定是否為偏遠地區；未提供則視為非偏遠地區"
+                    "description": "收件地址，用於判定是否為偏遠地區；未提供則視為非偏遠地區",
+                    "example": "澎湖縣馬公市中正路 1 號"
                   }
                 }
               }

@@ -261,6 +261,7 @@ router.post('/', dualAuth, (req, res) => {
  *               quantity:
  *                 type: integer
  *                 minimum: 1
+ *                 example: 2
  *     responses:
  *       200:
  *         description: 數量已更新

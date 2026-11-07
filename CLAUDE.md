@@ -9,8 +9,12 @@ npm run start          # 編譯 CSS 並啟動伺服器
 npm run dev:server     # 僅啟動伺服器（不編譯 CSS）
 npm run dev:css        # Tailwind CSS watch 模式
 npm run css:build      # 編譯並壓縮 CSS
-npm run test           # 執行測試（vitest run，循序執行）
+npm run test           # 單元 + 整合測試（vitest run，記憶體 SQLite）
+npm run test:unit      # 單元測試（tests/unit/）
+npm run test:integration # 整合測試（tests/integration/，Vitest + Supertest，DB_PATH=':memory:'）
+npm run test:e2e       # Playwright E2E：測試已啟動的 localhost:3001，含綠界 Staging 網路 ATM 付款
 npm run openapi        # 從 JSDoc 生成 openapi.json
+npm run postman        # 生成 openapi.json 並轉為 postman/flower-shop.postman_collection.json
 ```
 
 ## 關鍵規則
@@ -20,6 +24,7 @@ npm run openapi        # 從 JSDoc 生成 openapi.json
 - 運費一律由 `src/utils/shipping.js` 計算（純函式，規則見 docs/FEATURES.md「配送運費」）；`total_amount` = 商品小計 + 運費；偏遠地區由伺服器依地址判定，前端只透過 `POST /api/shipping/quote` 取得試算，不自行計價
 - 資料庫為 SQLite（better-sqlite3 同步 API），WAL 模式，foreign keys 啟用
 - 功能開發使用 docs/plans/ 記錄計畫；完成後移至 docs/plans/archive/
+- 測試不得寫入專案的 `database.sqlite`：整合測試一律經 vitest.config.js 使用記憶體資料庫；E2E 會寫入執行中伺服器的資料庫
 
 ## 詳細文件
 - ./docs/README.md — 項目介紹與快速開始

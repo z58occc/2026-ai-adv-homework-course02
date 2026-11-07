@@ -34,12 +34,15 @@ function generateOrderNo() {
  *             properties:
  *               recipientName:
  *                 type: string
+ *                 example: 王小明
  *               recipientEmail:
  *                 type: string
  *                 format: email
+ *                 example: buyer@example.com
  *               recipientAddress:
  *                 type: string
  *                 description: 收件地址（超商取貨時為取貨門市地址）；伺服器依此判定是否為偏遠地區（離島）
+ *                 example: 台北市大安區忠孝東路四段 1 號
  *               shippingMethod:
  *                 type: string
  *                 enum: [home_delivery, cvs_pickup]

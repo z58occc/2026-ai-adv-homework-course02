@@ -6,15 +6,21 @@
 ├── app.js                          # Express 應用設定：view engine、靜態檔案、middleware 串接、路由掛載、404/錯誤處理
 ├── server.js                       # 伺服器啟動入口，監聽 PORT（預設 3001）
 ├── package.json                    # 專案設定與 npm scripts
-├── vitest.config.js                # Vitest 測試設定（循序執行、檔案順序）
+├── vitest.config.js                # Vitest 設定（unit + integration、測試用記憶體資料庫 DB_PATH=':memory:'）
+├── playwright.config.js            # Playwright E2E 設定（測試已啟動的 localhost:3001，不設 webServer）
 ├── swagger-config.js               # Swagger/OpenAPI 設定（OpenAPI 3.0.3）
 ├── generate-openapi.js             # 從 JSDoc 註解生成 openapi.json
-├── database.sqlite                 # SQLite 資料庫檔案（自動建立）
+├── openapi.json                    # 由 npm run openapi 產生
+├── database.sqlite                 # SQLite 資料庫檔案（自動建立；可用 DB_PATH 改路徑或 :memory:）
+├── scripts/
+│   └── generate-postman.js         # openapi.json → Postman Collection v2.1
+├── postman/
+│   └── flower-shop.postman_collection.json  # 由 npm run postman 產生（gitignore）
 ├── .env                            # 環境變數（不進版控）
 ├── .env.example                    # 環境變數範本
 │
 ├── src/
-│   ├── database.js                 # 資料庫初始化：建表、WAL 模式、foreign keys、種子資料（admin + 8 個花卉商品）
+│   ├── database.js                 # 資料庫初始化：DB_PATH（預設 database.sqlite）、建表、WAL 模式、foreign keys、種子資料（admin + 8 個花卉商品）
 │   ├── middleware/
 │   │   ├── authMiddleware.js       # JWT 驗證：解析 Bearer token → jwt.verify → 查 DB 確認用戶存在 → 設定 req.user
 │   │   ├── adminMiddleware.js      # 管理員權限檢查：req.user.role === 'admin'，否則 403
@@ -80,15 +86,23 @@
 │           └── admin-orders.js     # 後台訂單管理腳本
 │
 └── tests/
-    ├── setup.js                    # 測試輔助：getAdminToken()、registerUser()
-    ├── shipping.test.js            # Shipping 模組單元測試（純函式，不啟動 app）
-    ├── auth.test.js                # 認證 API 測試
-    ├── products.test.js            # 商品 API 測試
-    ├── cart.test.js                # 購物車 API 測試
-    ├── orders.test.js              # 訂單 API 測試
-    ├── adminProducts.test.js       # 後台商品 API 測試
-    ├── adminOrders.test.js         # 後台訂單 API 測試
-    └── shippingApi.test.js         # 運費試算 API、建立訂單運費、綠界金額整合測試
+    ├── unit/                       # 純函式單元測試（npm run test:unit）
+    │   ├── shipping.test.js        # Shipping 模組
+    │   └── postmanCollection.test.js # Postman 轉換器
+    ├── integration/                # Vitest + Supertest，記憶體 SQLite（npm run test:integration）
+    │   ├── setup.js                # 檢查 DB_PATH、getAdminToken()、registerUser()
+    │   ├── testData.js             # 測試會員、資料庫查詢、清除測試資料、庫存快照
+    │   ├── checkoutFlow.test.js    # 結帳流程：訂單／品項寫入、運費、總額、庫存、購物車、失敗回滾
+    │   ├── auth.test.js            # 認證 API
+    │   ├── products.test.js        # 商品 API
+    │   ├── cart.test.js            # 購物車 API
+    │   ├── orders.test.js          # 訂單 API
+    │   ├── adminProducts.test.js   # 後台商品 API
+    │   ├── adminOrders.test.js     # 後台訂單 API
+    │   └── shippingApi.test.js     # 運費試算 API、建立訂單運費、綠界金額
+    └── e2e/                        # Playwright（npm run test:e2e）
+        ├── ecpay-webatm.spec.js    # 登入 → 購物車 → 結帳 → 綠界網路 ATM（土地銀行）→ 已付款
+        └── screenshots/            # E2E 成功截圖（gitignore）
 ```
 
 ## 啟動流程

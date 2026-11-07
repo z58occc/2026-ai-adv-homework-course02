@@ -122,16 +122,21 @@ router.get('/', (req, res) => {
  *             properties:
  *               name:
  *                 type: string
+ *                 example: 夏日繡球花束
  *               description:
  *                 type: string
+ *                 example: 當季繡球搭配尤加利葉，手工包裝
  *               price:
  *                 type: integer
  *                 minimum: 1
+ *                 example: 1280
  *               stock:
  *                 type: integer
  *                 minimum: 0
+ *                 example: 20
  *               image_url:
  *                 type: string
+ *                 example: https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400
  *     responses:
  *       201:
  *         description: 商品新增成功
@@ -217,16 +222,21 @@ router.post('/', (req, res) => {
  *             properties:
  *               name:
  *                 type: string
+ *                 example: 夏日繡球花束（大）
  *               description:
  *                 type: string
+ *                 example: 加大版繡球花束
  *               price:
  *                 type: integer
  *                 minimum: 1
+ *                 example: 1580
  *               stock:
  *                 type: integer
  *                 minimum: 0
+ *                 example: 15
  *               image_url:
  *                 type: string
+ *                 example: https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400
  *     responses:
  *       200:
  *         description: 商品更新成功

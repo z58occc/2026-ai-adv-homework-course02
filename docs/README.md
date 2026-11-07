@@ -30,6 +30,7 @@
 | API 文件 | swagger-jsdoc | ^6.2.8 |
 | 測試框架 | Vitest | ^2.1.9 |
 | HTTP 測試 | supertest | ^7.2.2 |
+| E2E 測試 | Playwright（@playwright/test） | ^1.65.0 |
 
 ## 快速開始
 
@@ -50,10 +51,14 @@ npm run dev:server   # 啟動 Express 伺服器
 npm run dev:css      # Tailwind CSS watch 模式
 
 # 5. 執行測試
-npm run test
+npm run test:unit          # 單元測試
+npm run test:integration   # 整合測試（記憶體 SQLite，不動 database.sqlite）
+npx playwright install chromium   # 首次執行 E2E 前安裝瀏覽器
+npm run test:e2e           # E2E（需先 npm run start，會走綠界 Staging 付款）
 
-# 6. 生成 OpenAPI 文件
+# 6. 生成 OpenAPI 文件與 Postman Collection
 npm run openapi
+npm run postman
 ```
 
 ### 預設帳號
@@ -72,8 +77,12 @@ npm run openapi
 | `npm run dev:server` | 僅啟動伺服器 |
 | `npm run dev:css` | Tailwind CSS watch 模式 |
 | `npm run css:build` | 編譯並壓縮 CSS |
-| `npm run test` | 執行全部測試 |
+| `npm run test` | 單元 + 整合測試 |
+| `npm run test:unit` | 單元測試（`tests/unit/`） |
+| `npm run test:integration` | 整合測試（`tests/integration/`，記憶體 SQLite） |
+| `npm run test:e2e` | Playwright E2E（測試已啟動的 `http://localhost:3001`） |
 | `npm run openapi` | 生成 openapi.json |
+| `npm run postman` | 生成 openapi.json 並轉為 `postman/flower-shop.postman_collection.json` |
 
 ## 文件索引
 

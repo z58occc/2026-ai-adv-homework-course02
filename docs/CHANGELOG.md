@@ -5,11 +5,17 @@
 ## [Unreleased]
 
 ### Added
+- 完整測試流程與指令：`npm run test:unit`、`npm run test:integration`、`npm run test:e2e`、`npm run postman`
+- 整合測試 `tests/integration/checkoutFlow.test.js`：會員登入 → 取得商品 → 加入購物車 → 建立含配送資訊的訂單，直接查資料庫驗證訂單／品項寫入、運費、總額、庫存扣除、購物車清空；並驗證庫存不足、參數錯誤、購物車為空、交易中途失敗時不留下不完整訂單且不扣庫存
+- Playwright E2E `tests/e2e/ecpay-webatm.spec.js`：登入 → 加入購物車 → 結帳（宅配＋當日急件）→ 綠界 Staging 網路 ATM（台灣土地銀行）付款 → 返回商店 → 訂單「已付款」／`paid`，成功截圖存於 `tests/e2e/screenshots/`
+- `scripts/generate-postman.js`：將 openapi.json 轉為 Postman Collection（`{{baseUrl}}`、`token`、`sessionId` 變數，登入自動存 JWT，需登入的 API 自動帶 Bearer Token），輸出 `postman/flower-shop.postman_collection.json`
+- `src/database.js` 支援 `DB_PATH` 環境變數（可為 `:memory:`）
+- OpenAPI request body 補上 `example`（登入、註冊、購物車、訂單、後台商品、運費試算）
 - 配送運費計算：新增 `src/utils/shipping.js` Shipping 模組（純函式），集中處理宅配基本運費 120、超商取貨 60（非基本運費，滿額不免）、商品小計滿 1,500 免宅配基本運費、偏遠地區（離島）加收 200、當日急件加收 250
 - 新增 `POST /api/shipping/quote` 公開 API：結帳／購物車頁即時試算運費明細
 - `POST /api/orders` 新增選填參數 `shippingMethod`（`home_delivery` / `cvs_pickup`，預設宅配）與 `isUrgent`（預設 `false`）；偏遠地區由伺服器依收件地址判定
 - 訂單新增 `subtotal_amount`、`shipping_method`、`shipping_fee`、`is_remote_area`、`is_urgent` 欄位（migration 會將舊訂單的 `subtotal_amount` 回填為 `total_amount`）
-- 新增測試：`tests/shipping.test.js`（Shipping 模組單元測試）、`tests/shippingApi.test.js`（運費 API 與訂單整合測試）
+- 新增測試：`tests/unit/shipping.test.js`（Shipping 模組單元測試）、`tests/integration/shippingApi.test.js`（運費 API 與訂單整合測試）
 - 綠界 ECPay AIO 金流串接：結帳後導向綠界付款頁面完成真實付款流程
 - 新增 `src/utils/ecpay.js` 工具模組：CheckMacValue 簽章產生/驗證、ECPay 專用 URL 編碼、QueryTradeInfo API 查詢
 - 新增 `GET /ecpay/payment/:orderId` 頁面路由：產生自動送出的 ECPay 付款表單
@@ -17,6 +23,8 @@
 - 訂單新增 `merchant_trade_no` 欄位：對應綠界 MerchantTradeNo，由 order_no 去除連字號產生
 
 ### Changed
+- 測試目錄改為 `tests/unit/`、`tests/integration/`、`tests/e2e/`；Vitest 改用記憶體 SQLite（`DB_PATH=':memory:'`），`npm test` 不再寫入專案的 `database.sqlite`，測試檔之間也不再有資料依賴
+- 移除 `vitest.config.js` 中 Vitest 不支援、實際上未生效的 `sequence.files` 設定
 - 訂單 `total_amount` 改為「商品小計 + 運費」，綠界 `TotalAmount` 隨之含運費，`ItemName` 附加「運費 x1」
 - 結帳頁面：新增配送方式（宅配到府／超商取貨）與當日急件選項，訂單摘要逐項顯示配送費與附加費（由試算 API 計算）
 - 購物車頁面：免運門檻由 NT$ 500 改為宅配滿 NT$ 1,500，運費改由試算 API 提供，總計改標「預估總計」

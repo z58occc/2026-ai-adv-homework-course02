@@ -32,6 +32,7 @@ const router = express.Router();
  *                 type: integer
  *                 minimum: 0
  *                 description: 商品小計
+ *                 example: 1200
  *               shippingMethod:
  *                 type: string
  *                 enum: [home_delivery, cvs_pickup]
@@ -42,6 +43,7 @@ const router = express.Router();
  *               recipientAddress:
  *                 type: string
  *                 description: 收件地址，用於判定是否為偏遠地區；未提供則視為非偏遠地區
+ *                 example: 澎湖縣馬公市中正路 1 號
  *     responses:
  *       200:
  *         description: 試算成功

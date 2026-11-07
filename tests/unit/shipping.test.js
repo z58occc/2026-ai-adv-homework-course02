@@ -6,7 +6,7 @@ const {
   isRemoteAddress,
   parseShippingOptions,
   calculateShipping,
-} = require('../src/utils/shipping');
+} = require('../../src/utils/shipping');
 
 const { HOME_DELIVERY, CVS_PICKUP } = SHIPPING_METHODS;
 

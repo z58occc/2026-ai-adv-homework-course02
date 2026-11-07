@@ -8,7 +8,11 @@
     "dev:css": "npx @tailwindcss/cli -i public/css/input.css -o public/css/output.css --watch",
     "css:build": "npx @tailwindcss/cli -i public/css/input.css -o public/css/output.css --minify",
     "openapi": "node generate-openapi.js",
-    "test": "vitest run"
+    "postman": "npm run openapi && node scripts/generate-postman.js",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -22,6 +26,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/cli": "^4.2.2",
     "supertest": "^7.2.2",
     "tailwindcss": "^4.2.2",

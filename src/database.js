@@ -3,7 +3,9 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
-const dbPath = path.join(__dirname, '..', 'database.sqlite');
+// DB_PATH can point to another file or ':memory:' (integration tests use an
+// in-memory database so they never touch the project's database.sqlite).
+const dbPath = process.env.DB_PATH || path.join(__dirname, '..', 'database.sqlite');
 const db = new Database(dbPath);
 
 // Enable WAL mode for better performance

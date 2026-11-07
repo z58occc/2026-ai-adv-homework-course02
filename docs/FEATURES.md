@@ -14,8 +14,8 @@
 | 後台訂單管理 | ✅ 完成 | 訂單查詢與狀態篩選 |
 | 前台頁面 | ✅ 完成 | EJS + Tailwind CSS |
 | 後台頁面 | ✅ 完成 | EJS + Tailwind CSS |
-| 測試 | ✅ 完成 | Vitest + supertest，8 個測試檔案（含 Shipping 模組單元測試） |
-| API 文件 | ✅ 完成 | Swagger/OpenAPI 生成 |
+| 測試 | ✅ 完成 | 單元（Vitest）、整合（Vitest + supertest，記憶體 SQLite）、E2E（Playwright，綠界網路 ATM 付款），詳見 TESTING.md |
+| API 文件 | ✅ 完成 | Swagger/OpenAPI 生成（`npm run openapi`）、Postman Collection（`npm run postman`） |
 
 ---
 

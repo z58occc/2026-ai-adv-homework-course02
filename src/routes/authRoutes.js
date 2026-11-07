@@ -24,11 +24,14 @@ const router = express.Router();
  *               email:
  *                 type: string
  *                 format: email
+ *                 example: newuser@example.com
  *               password:
  *                 type: string
  *                 minLength: 6
+ *                 example: password123
  *               name:
  *                 type: string
+ *                 example: 王小明
  *     responses:
  *       201:
  *         description: 註冊成功
@@ -142,8 +145,10 @@ router.post('/register', (req, res) => {
  *               email:
  *                 type: string
  *                 format: email
+ *                 example: admin@hexschool.com
  *               password:
  *                 type: string
+ *                 example: '12345678'
  *     responses:
  *       200:
  *         description: 登入成功
