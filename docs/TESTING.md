@@ -2,6 +2,9 @@
 
 ## 測試分層與指令
 
+> Unit 與 Integration 會在 push / Pull Request 時由 GitHub Actions 自動執行，見 [CI（GitHub Actions）](#cigithub-actions)。
+
+
 | 指令 | 層級 | 工具 | 範圍 | 資料庫 |
 |------|------|------|------|--------|
 | `npm run test:unit` | 單元 | Vitest | `tests/unit/`：純函式（Shipping 模組、Postman 轉換器） | 不使用 |
@@ -210,6 +213,22 @@ npm run postman   # = npm run openapi && node scripts/generate-postman.js
 | 範例 body | 取自 OpenAPI 的 `example` / `default` / `enum`（JSDoc 中維護） |
 
 使用順序：Auth › 使用者登入（範例為種子 admin 帳號）→ 其餘 API 即自動帶 Token。修改路由 JSDoc 後重新執行 `npm run postman`，勿手動編輯產出檔。
+
+## CI（GitHub Actions）
+
+**檔案**：`.github/workflows/test.yml`
+
+| 項目 | 設定 |
+|------|------|
+| 觸發 | push 到任何分支、對 `main` 開 Pull Request、手動執行（`workflow_dispatch`） |
+| 環境 | `ubuntu-latest`、Node.js 22（`actions/setup-node` 快取 npm） |
+| 步驟 | Checkout → Set up Node.js → `npm ci` → **Unit tests**（`npm run test:unit`）→ **Integration tests**（`npm run test:integration`） |
+| 不執行 | Playwright E2E（需已啟動的伺服器與綠界 Staging）；也不啟動任何前端或後端服務 |
+| 其他 | `permissions: contents: read`；同一分支有新 push 時取消舊的執行；逾時 15 分鐘 |
+
+CI 不需要任何 Secrets 或 `.env`：整合測試所需的 `DB_PATH=':memory:'`、`JWT_SECRET`、`ADMIN_*` 皆由 `vitest.config.js` 的 `test.env` 提供，supertest 直接呼叫 Express app，不開埠號。
+
+執行結果可在 GitHub repo 的 **Actions** 分頁查看。
 
 ## 撰寫新測試的步驟
 

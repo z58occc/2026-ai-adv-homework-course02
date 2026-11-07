@@ -5,6 +5,7 @@
 ## [Unreleased]
 
 ### Added
+- GitHub Actions `.github/workflows/test.yml`：push 任何分支、對 `main` 開 PR 或手動觸發時，以 Node.js 22 執行 `npm ci` → `npm run test:unit` → `npm run test:integration`（不執行 E2E、不啟動服務）
 - 完整測試流程與指令：`npm run test:unit`、`npm run test:integration`、`npm run test:e2e`、`npm run postman`
 - 整合測試 `tests/integration/checkoutFlow.test.js`：會員登入 → 取得商品 → 加入購物車 → 建立含配送資訊的訂單，直接查資料庫驗證訂單／品項寫入、運費、總額、庫存扣除、購物車清空；並驗證庫存不足、參數錯誤、購物車為空、交易中途失敗時不留下不完整訂單且不扣庫存
 - Playwright E2E `tests/e2e/ecpay-webatm.spec.js`：登入 → 加入購物車 → 結帳（宅配＋當日急件）→ 綠界 Staging 網路 ATM（台灣土地銀行）付款 → 返回商店 → 訂單「已付款」／`paid`，成功截圖存於 `tests/e2e/screenshots/`

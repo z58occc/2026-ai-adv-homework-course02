@@ -1,0 +1,44 @@
+# 程式碼更新時自動執行 Unit Test 與 Integration Test。
+# - Integration Test 由 vitest.config.js 設定 DB_PATH=':memory:'、JWT_SECRET 等測試用環境變數，
+#   不需要 .env、資料庫檔案，也不需要啟動任何前端或後端服務（supertest 直接呼叫 Express app）。
+# - Playwright E2E 需連線已啟動的伺服器與綠界 Staging，不在 CI 執行。
+name: Tests
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Unit tests
+        run: npm run test:unit
+
+      - name: Integration tests
+        run: npm run test:integration

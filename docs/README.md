@@ -1,5 +1,7 @@
 # 花卉電商網站（backend-project）
 
+[![Tests](https://github.com/z58occc/2026-ai-adv-homework-course02/actions/workflows/test.yml/badge.svg)](https://github.com/z58occc/2026-ai-adv-homework-course02/actions/workflows/test.yml)
+
 花卉電商全端應用，提供前台商品瀏覽、購物車、訂單管理、配送運費計算與綠界金流付款，以及後台商品與訂單管理功能。支援訪客購物車（X-Session-Id）與會員登入（JWT）雙模式。
 
 ### 配送運費一覽
@@ -83,6 +85,8 @@ npm run postman
 | `npm run test:e2e` | Playwright E2E（測試已啟動的 `http://localhost:3001`） |
 | `npm run openapi` | 生成 openapi.json |
 | `npm run postman` | 生成 openapi.json 並轉為 `postman/flower-shop.postman_collection.json` |
+
+push 或對 `main` 開 Pull Request 時，GitHub Actions（`.github/workflows/test.yml`）會自動執行 `test:unit` 與 `test:integration`。
 
 ## 文件索引
 

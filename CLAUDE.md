@@ -24,6 +24,7 @@ npm run postman        # 生成 openapi.json 並轉為 postman/flower-shop.postm
 - 運費一律由 `src/utils/shipping.js` 計算（純函式，規則見 docs/FEATURES.md「配送運費」）；`total_amount` = 商品小計 + 運費；偏遠地區由伺服器依地址判定，前端只透過 `POST /api/shipping/quote` 取得試算，不自行計價
 - 資料庫為 SQLite（better-sqlite3 同步 API），WAL 模式，foreign keys 啟用
 - 功能開發使用 docs/plans/ 記錄計畫；完成後移至 docs/plans/archive/
+- GitHub Actions（`.github/workflows/test.yml`）會在 push / PR 時執行 test:unit 與 test:integration；新增測試須能在無 `.env`、無啟動服務的環境通過
 - 測試不得寫入專案的 `database.sqlite`：整合測試一律經 vitest.config.js 使用記憶體資料庫；E2E 會寫入執行中伺服器的資料庫
 
 ## 詳細文件
